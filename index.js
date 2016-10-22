@@ -4,8 +4,25 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const exphbs = require('express-handlebars');
+const mongoose = require('mongoose');
+mongoose.Promise = require('bluebird');
 
-var hbs = exphbs.create({
+
+const Lead = require('./app/api/lead');
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+
+mongoose.connect('mongodb://localhost:/aerodoc', (err, database) => {
+    if (err) return console.log(err, 'Error connecting to database')
+    app.listen(3000, () => {
+        console.log('Server started on 3000')
+    })
+})
+
+const hbs = exphbs.create({
     defaultLayout: 'main',
     layoutsDir: "views/layouts/",
     partialsDir: 'views/partials'
@@ -15,22 +32,11 @@ app.engine('handlebars', hbs.engine);
 app.engine('.hbs', exphbs({ extname: '.hbs' }));
 app.set('view engine', '.hbs');
 
-var db
-    //database
-var mongoose = require('mongoose');
-
-mongoose.connect('mongodb://localhost:/aerodoc', (err, database) => {
-    if (err) return console.log(err)
-    db = database
-    app.listen(3000, () => {
-        console.log('listening on 3000')
-    })
-
-
-})
-
-
-
 app.get('/', (req, res) => {
     res.render('home', { layout: false });
 })
+
+app.get('/leads', Lead.getAll);
+app.get('/lead/:id', Lead.getOne);
+app.post('/lead', Lead.create);
+app.put('/lead/:id', Lead.update);
