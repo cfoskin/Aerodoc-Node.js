@@ -1,0 +1,26 @@
+{
+    "name": "aerodoc",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "dev": "nodemon index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/cfoskin/aerodoc.git"
+    },
+    "author": "Colum Foskin",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/cfoskin/aerodoc/issues"
+    },
+    "homepage": "https://github.com/cfoskin/aerodoc#readme",
+    "dependencies": {
+        "mongoose": "^4.6.3",
+        "body-parser": "^1.15.2",
+        "ejs": "^2.5.2",
+        "express": "^4.14.0",
+        "mongodb": "^2.2.10"
+    }
+}
