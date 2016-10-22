@@ -17,13 +17,13 @@ exports.getOne = (req, res) => {
                 res.send(lead)
             };
         })
-        .catch(err => { res.send(Boom.badImplementation('error getting the leads!')); })
+        .catch(err => { res.send(Boom.notFound('id not found!')); })
 };
 
 exports.getAll = (req, res) => {
     Lead.find({}).exec()
         .then(leads => { res.json(leads); })
-        .catch(err => { res.send(Boom.badImplementation('error getting the leads!')); })
+        .catch(err => { res.send(Boom.badImplementation('error retrieving the leads from database!')); })
 };
 
 exports.update = (req, res) => {
@@ -33,5 +33,5 @@ exports.update = (req, res) => {
                 res.json({ message: 'Lead updated!', data: lead });
             }
         })
-        .catch(err => { res.send(Boom.badImplementation('error getting that lead!')); })
+        .catch(err => { res.send(Boom.notFound('id not found!')); })
 };
