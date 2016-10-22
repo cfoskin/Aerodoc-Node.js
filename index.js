@@ -41,6 +41,7 @@ app.get('/leads', Lead.getAll);
 app.get('/lead/:id', Lead.getOne);
 app.post('/lead', Lead.create);
 app.put('/lead/:id', Lead.update);
+app.delete('/lead/:id', Lead.delete);
 
 app.get('/salesAgents', SalesAgent.getAll);
 app.get('/salesAgent/:id', SalesAgent.getOne);
