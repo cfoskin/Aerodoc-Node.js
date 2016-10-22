@@ -9,6 +9,7 @@ mongoose.Promise = require('bluebird');
 
 
 const Lead = require('./app/api/lead');
+const SalesAgent = require('./app/api/salesAgent');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -40,3 +41,9 @@ app.get('/leads', Lead.getAll);
 app.get('/lead/:id', Lead.getOne);
 app.post('/lead', Lead.create);
 app.put('/lead/:id', Lead.update);
+
+app.get('/salesAgents', SalesAgent.getAll);
+app.get('/salesAgent/:id', SalesAgent.getOne);
+app.post('/salesAgent', SalesAgent.create);
+app.put('/salesAgent/:id', SalesAgent.update);
+
