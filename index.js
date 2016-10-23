@@ -9,6 +9,7 @@ mongoose.Promise = require('bluebird');
 const Lead = require('./app/api/lead');
 const SalesAgent = require('./app/api/salesAgent');
 const PushConfig = require('./app/api/pushConfig');
+const Admin = require('./app/api/admin');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -34,23 +35,23 @@ app.set('view engine', '.hbs');
 
 app.get('/', (req, res) => {
     res.render('home', { layout: false });
-})
+});
 
-app.get('/leads', Lead.listAll);
-app.get('/leads', Lead.getAll);
-app.get('/lead/:id', Lead.getOne);
-app.post('/lead', Lead.create);
-app.put('/lead/:id', Lead.update);
-app.delete('/lead/:id', Lead.delete);
+app.get('/api/leads', Lead.listAll);
+app.get('/api/leads', Lead.getAll);
+app.get('/api/lead/:id', Lead.getOne);
+app.post('/api/lead', Lead.create);
+app.put('/api/lead/:id', Lead.update);
+app.delete('/api/lead/:id', Lead.delete);
 
-app.get('/salesAgents', SalesAgent.getAll);
-app.get('/salesAgent/:id', SalesAgent.getOne);
-app.post('/salesAgent', SalesAgent.create);
-app.put('/salesAgent/:id', SalesAgent.update);
+app.get('/api/salesAgents', SalesAgent.getAll);
+app.get('/api/salesAgent/:id', SalesAgent.getOne);
+app.post('/api/salesAgent', SalesAgent.create);
+app.put('/api/salesAgent/:id', SalesAgent.update);
 
-app.get('/pushConfigs', PushConfig.getAll);
-app.get('/pushConfig/:id', PushConfig.getOne);
-app.post('/pushConfig', PushConfig.create);
-app.put('/pushConfig/:id', PushConfig.update);
-app.delete('/pushConfig/:id', PushConfig.delete);
+app.get('/api/pushConfigs', PushConfig.getAll);
+app.get('/api/pushConfig/:id', PushConfig.getOne);
+app.post('/api/pushConfig', PushConfig.create);
+app.put('/api/pushConfig/:id', PushConfig.update);
+app.delete('/api/pushConfig/:id', PushConfig.delete);
 

@@ -8,7 +8,7 @@ exports.create = (req, res) => {
     lead.save()
         .then(newLead => {
                 res.json({ message: 'Lead created', data: newLead });
-                res.render('leads');
+                //res.render('leads');
         })
         .catch(err => {
              res.send(Boom.badImplementation('error creating Lead'));
@@ -64,6 +64,7 @@ exports.delete = (req, res) => {
             return res.json({ message: 'lead deleted', Lead }).code(204);
         })
         .catch(err => {
-             return res.send(Boom.notFound('id not found'));
+            return res.end('id not found');
+             // return res.end(Boom.notFound('id not found'));
         });
 };
