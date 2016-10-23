@@ -1,6 +1,7 @@
 'use strict';
 
 const SalesAgent = require('../models/SalesAgent');
+const Boom = require('boom');
 
 exports.create = (req, res) => {
     const salesAgent = new SalesAgent(req.body);

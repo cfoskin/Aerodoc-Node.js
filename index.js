@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 const Lead = require('./app/api/lead');
 const SalesAgent = require('./app/api/salesAgent');
+const PushConfig = require('./app/api/pushConfig');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -36,14 +37,20 @@ app.get('/', (req, res) => {
 })
 
 app.get('/leads', Lead.listAll);
+app.get('/leads', Lead.getAll);
 app.get('/lead/:id', Lead.getOne);
 app.post('/lead', Lead.create);
 app.put('/lead/:id', Lead.update);
 app.delete('/lead/:id', Lead.delete);
 
-
 app.get('/salesAgents', SalesAgent.getAll);
 app.get('/salesAgent/:id', SalesAgent.getOne);
 app.post('/salesAgent', SalesAgent.create);
 app.put('/salesAgent/:id', SalesAgent.update);
+
+app.get('/pushConfigs', PushConfig.getAll);
+app.get('/pushConfig/:id', PushConfig.getOne);
+app.post('/pushConfig', PushConfig.create);
+app.put('/pushConfig/:id', PushConfig.update);
+app.delete('/pushConfig/:id', PushConfig.delete);
 
