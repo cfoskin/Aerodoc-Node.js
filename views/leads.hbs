@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title> Leads
+    </title>
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"
+    rel="stylesheet">
+     <body>
+    <div class="btn-toolbar">
+      <div class="btn-group">
+        <a href="#" class="btn btn-primary" id="aerodoc">Aerodoc</a>
+        <a href="#" class="btn btn-primary" id="signout">Sign Out</a>
+      </div>
+    </div>
+  </head>
+  
+    <div class="panel panel-default">
+    </div>
+    <div class="page-header">
+      <h3 class="text-center">
+       Aerodoc Leads
+      </h3>
+    </div>
+    <div class="container" id="container" >
+      <div class="panel panel-primary" >
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Leads List
+          </h3>
+        </div>
+        <div class="panel-body">
+          <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Phone Number</th>
+            <th>Sales Agent</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each allLeads}}
+            <tr>
+              <td> {{name}}</td>
+              <td> {{location}} </td>
+              <td> {{phNo}} </td>
+              <td> {{salesAgent}} </td>
+            <!--  <td> 
+              <button action="/lead/:id" method="DELETE" type="submit" class="btn  btn-danger" id="deleteLead">
+                Delete         
+              </button> 
+             </td> -->
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+        </div>
+      </div>
+    </div>
+    <div class="container" align="middle">
+      <div class="panel panel-primary" style="width: 75%"  align="middle">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Create a New Lead
+          </h3>
+        </div>
+        <div class="panel-body">
+          <form action="/lead" method="POST">
+            <div class="form-group">
+              <label>
+                Name
+              </label>
+              <input class="form-control" placeholder="Name" type="text" name="name">
+            </div>
+          <div class="form-group">
+            <label>
+              Location
+            </label>
+              <input class="form-control" placeholder="Location" type="text" name="location">
+          </div>
+          <div class="form-group">
+            <label>
+              Phone Number
+            </label>
+              <input class="form-control" placeholder="Phone Number" type="text" name="phNo">
+          </div>
+          <div class="form-group">
+          </div>
+          <div class="form-group">
+            <label>
+              Sales Agent
+            </label>
+              <input class="form-control" placeholder="Sales Agent" type="text" name="salesAgent">
+          </div>
+          <button type="submit" class="btn pull-right btn-primary" id="newLead">
+            Create Lead!
+          </button>
+        </div>
+      </div>
+    </form>
+    </div>
+  </body>
+
+</html>

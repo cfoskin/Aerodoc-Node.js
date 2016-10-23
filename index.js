@@ -6,18 +6,13 @@ const app = express();
 const exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
-
-
 const Lead = require('./app/api/lead');
 const SalesAgent = require('./app/api/salesAgent');
 
 app.use(bodyParser.json());
-
 app.use(bodyParser.urlencoded({
     extended: true
 }));
-
-
 
 mongoose.connect('mongodb://localhost:/aerodoc', (err, database) => {
     if (err) return console.log(err, 'Error connecting to database')
