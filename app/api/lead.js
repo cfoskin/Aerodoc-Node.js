@@ -7,7 +7,8 @@ exports.create = (req, res) => {
     const lead = new Lead(req.body);
     lead.save()
         .then(newLead => {
-            return res.json({ message: 'Lead created', data: newLead });
+                res.json({ message: 'Lead created', data: newLead });
+                res.render('leads');
         })
         .catch(err => {
              res.send(Boom.badImplementation('error creating Lead'));
@@ -28,9 +29,20 @@ exports.getOne = (req, res) => {
 exports.getAll = (req, res) => {
     Lead.find({}).exec()
         .then(leads => {
-            return res.json(leads);
-        })
+            return res.json(leads);})
         .catch(err => {
+             res.send(Boom.badImplementation('error retrieving the leads from database!'));
+        })
+};
+
+
+ exports.listAll = (req, res) => {
+    Lead.find({}).exec()
+    .then(allLeads => {
+             	 res.render('leads',{
+             	 	allLeads: allLeads
+             	 });})
+    .catch(err => {
              res.send(Boom.badImplementation('error retrieving the leads from database!'));
         })
 };
@@ -52,6 +64,6 @@ exports.delete = (req, res) => {
             return res.json({ message: 'lead deleted', Lead }).code(204);
         })
         .catch(err => {
-             res.send(Boom.notFound('id not found'));
+             return res.send(Boom.notFound('id not found'));
         });
 };

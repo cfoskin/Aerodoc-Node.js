@@ -12,9 +12,12 @@ const Lead = require('./app/api/lead');
 const SalesAgent = require('./app/api/salesAgent');
 
 app.use(bodyParser.json());
+
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+
+
 
 mongoose.connect('mongodb://localhost:/aerodoc', (err, database) => {
     if (err) return console.log(err, 'Error connecting to database')
@@ -37,11 +40,12 @@ app.get('/', (req, res) => {
     res.render('home', { layout: false });
 })
 
-app.get('/leads', Lead.getAll);
+app.get('/leads', Lead.listAll);
 app.get('/lead/:id', Lead.getOne);
 app.post('/lead', Lead.create);
 app.put('/lead/:id', Lead.update);
 app.delete('/lead/:id', Lead.delete);
+
 
 app.get('/salesAgents', SalesAgent.getAll);
 app.get('/salesAgent/:id', SalesAgent.getOne);
