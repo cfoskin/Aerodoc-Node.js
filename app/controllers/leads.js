@@ -6,7 +6,6 @@ exports.createLead = (req, res) => {
     const lead = new Lead(req.body);
     lead.save()
         .then(newLead => {
-            //res.json({ message: 'Lead created', data: newLead });
             res.redirect('/leads');
         })
         .catch(err => {
