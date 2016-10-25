@@ -12,21 +12,19 @@
      <body>
     <div class="btn-toolbar">
       <div class="btn-group">
-        <a href="#" class="btn btn-primary" id="aerodoc">Aerodoc</a>
+        <a href="#" class="btn btn-primary" id="aerodoc">Aerodoc </a>
         <a href="#" class="btn btn-primary" id="signout">Sign Out</a>
       </div>
     </div>
   </head>
-  
-    <div class="panel panel-default">
-    </div>
+
     <div class="page-header">
       <h3 class="text-center">
-       Aerodoc Leads
+       Aerodoc Home
       </h3>
     </div>
-    <div class="container" id="container" >
-      <div class="panel panel-primary" >
+    <div class="container" id="container"  align="middle" >
+      <div class="panel panel-primary" style="width: 75%"   align="middle" >
         <div class="panel-heading">
           <h3 class="panel-title">
             Leads List
@@ -49,11 +47,6 @@
               <td> {{location}} </td>
               <td> {{phNo}} </td>
               <td> {{salesAgent}} </td>
-            <!--  <td> 
-              <button action="/lead/:id" method="DELETE" type="submit" class="btn  btn-danger" id="deleteLead">
-                Delete         
-              </button> 
-             </td> -->
             </tr>
           {{/each}}
         </tbody>
@@ -69,7 +62,7 @@
           </h3>
         </div>
         <div class="panel-body">
-          <form action="/api/lead" method="POST">
+          <form action="/lead" method="POST">
             <div class="form-group">
               <label>
                 Name

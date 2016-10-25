@@ -34,24 +34,26 @@
           </h3>
         </div>
         <div class="panel-body">
+       <form action="/leads" method="POST">
           <div class="form-group">
             <label>
               Username
             </label>
-            <input type="text" class="form-control">
+            <input type="text" class="form-control" type="text" name="username">
             <div class="form-group">
               <label>
                 <br>
                 Password
                 <br>
               </label>
-              <input type="text" class="form-control">
+              <input type="text" class="form-control" type="text" name="password">
               <hr>
               <button type="submit" class="btn pull-right btn-primary">
                 Sign in
               </button>
             </div>
           </div>
+          </form>
         </div>
       </div>
     </div>

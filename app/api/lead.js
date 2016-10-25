@@ -36,16 +36,6 @@ exports.getAll = (req, res) => {
 };
 
 
- exports.listAll = (req, res) => {
-    Lead.find({}).exec()
-    .then(allLeads => {
-             	 res.render('leads',{
-             	 	allLeads: allLeads
-             	 });})
-    .catch(err => {
-             res.send(Boom.badImplementation('error retrieving the leads from database!'));
-        })
-};
 
 exports.update = (req, res) => {
     Lead.findOneAndUpdate({ _id: req.params.id }, { $set: req.body }, { 'new': true })
