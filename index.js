@@ -19,6 +19,7 @@ const AdminApi = require('./app/api/admin');
 //controllers
 const Account = require('./app/controllers/account');
 const Lead = require('./app/controllers/leads');
+const PushConfig = require('./app/controllers/pushConfig');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -46,6 +47,9 @@ app.set('view engine', '.hbs');
 
 //App routes
 routes.get('/', Account.logIn);
+routes.get('/pushConfig', Account.pushConfig);
+routes.get('/newpushConfig', PushConfig.viewNewPushConfig);
+
 routes.post('/logIn', Account.authenticate);
 //protect routes from here
 routes.use(Account.verifyToken);

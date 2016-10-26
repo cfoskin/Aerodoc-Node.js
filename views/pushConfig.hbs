@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title> Home
+    <title> Push Config
     </title>
     <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"
     rel="stylesheet">
@@ -12,44 +12,43 @@
     <div class="btn-toolbar">
       <div class="btn-group">
         <a href="/" class="btn btn-primary" id="signout">Sign Out</a>
-    <button type="submit" action="/pushConfig" method="POST" class="btn btn-primary" id="pushConfig"> Push Configuration </button>
+        <a href="/home" class="btn btn-primary" id="signout">Home</a>
       </div>
     </div>
   </head>
-
     <div class="page-header">
       <h3 class="text-center">
        Aerodoc 
       </h3>
     </div>
     <div class="container" id="container"  align="middle" >
-      <div class="panel panel-primary" style="width: 60%"   align="middle" >
+      <div class="panel panel-primary" style="width: 75%"   align="middle" >
         <div class="panel-heading">
           <h3 class="panel-title">
-            Leads List
+            PushConfig List
           </h3>
         </div>
-        <div class="panel-body" style="max-height: 300;overflow-y: scroll;">
+        <div class="panel-body">
           <table class="table">
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Location</th>
-            <th>Phone Number</th>
-            <th>Sales Agent</th>
+            <th>Server URL</th>
+            <th>PushAppication Id</th>
+            <th>Active</th>
           </tr>
         </thead>
         <tbody>
-          {{#each allLeads}}
+          {{#each allPushConfigs}}
             <tr>
-              <td> {{name}}</td>
-              <td> {{location}} </td>
-              <td> {{phNo}} </td>
-              <td> {{salesAgent}} </td>
+              <td> {{serverURL}}</td>
+              <td> {{pushApplicationId}} </td>
+              <td> {{active}} </td>
             </tr>
           {{/each}}
         </tbody>
       </table>
+              <a href="/newPushConfig" class="btn btn-primary" id="signout">Create New PushConfig</a>
+
         </div>
       </div>
     </div>

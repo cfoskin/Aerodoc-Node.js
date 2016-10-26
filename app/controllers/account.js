@@ -1,13 +1,20 @@
 'use strict';
 
 const Admin = require('../models/Admin');
+const PushConfig = require('../models/PushConfig');
 const Boom = require('boom')
 const jwt = require('jsonwebtoken');
 const config = require('../../config/config');
 const secret = config.secret;
-var token;
+
+
 exports.logIn = (req, res) => {
     res.render('login');
+};
+
+exports.logOut = function (request, reply) {
+    console.log('It got in!');
+    reply.redirect('/');
 };
 
 exports.authenticate = (req, res) => {
@@ -17,7 +24,7 @@ exports.authenticate = (req, res) => {
         if (foundAdmin.password != req.body.password) {
             res.status(200).json({ success: false, message: 'Authentication failed. Wrong password.' });
         } else {
-            token = jwt.sign(foundAdmin, secret, {
+            var token = jwt.sign(foundAdmin, secret, {
                 expiresIn: 1440 
             });
             res.redirect('/home' + '?token=' + token);
@@ -25,11 +32,6 @@ exports.authenticate = (req, res) => {
     }).catch(err => {
         res.status(401).json({ success: false, message: 'Authentication failed. Admin user not found.' })
     });
-};
-
-exports.logOut = function (request, reply) {
-    console.log('It got in!');
-    reply.redirect('/');
 };
 
 exports.verifyToken = (req, res, next) => {
@@ -50,3 +52,18 @@ exports.verifyToken = (req, res, next) => {
         });
     }
 };
+
+exports.pushConfig = (req, res) => {
+    PushConfig.find({}).exec()
+        .then(allPushConfigs => {
+            res.render('pushConfig', {
+                allPushConfigs: allPushConfigs
+            });
+        })
+        .catch(err => {
+            res.end('error retrieving the PushConfig from database!');
+        })
+};
+
+
+
