@@ -18,9 +18,9 @@ exports.authenticate = (req, res) => {
             res.status(200).json({ success: false, message: 'Authentication failed. Wrong password.' });
         } else {
             token = jwt.sign(foundAdmin, secret, {
-                expiresIn: 120 
+                expiresIn: 1440 
             });
-            res.redirect('/leads' + '?token=' + token);
+            res.redirect('/home' + '?token=' + token);
         }
     }).catch(err => {
         res.status(401).json({ success: false, message: 'Authentication failed. Admin user not found.' })

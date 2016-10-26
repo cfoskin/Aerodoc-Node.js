@@ -49,7 +49,7 @@ routes.get('/', Account.logIn);
 routes.post('/logIn', Account.authenticate);
 //protect routes from here
 routes.use(Account.verifyToken);
-routes.get('/leads', Lead.getAll);
+routes.get('/home', Lead.getAll);
 routes.post('/lead', Lead.createLead);
 app.use('/', routes);
 
