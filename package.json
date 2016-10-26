@@ -17,14 +17,18 @@
   },
   "homepage": "https://github.com/cfoskin/aerodoc#readme",
   "dependencies": {
-    "bcrypt-nodejs": "0.0.3",
+    "bcrypt": "^0.8.5",
     "body-parser": "^1.15.2",
+    "cookie-parser": "^1.4.3",
     "ejs": "^2.5.2",
     "express": "^4.14.0",
     "express-boom": "^1.0.0",
+    "jsonwebtoken": "^7.1.9",
+    "jwt-simple": "^0.3.1",
     "mongodb": "^2.2.10",
     "mongoose": "^4.6.3",
+    "morgan": "^1.7.0",
     "passport": "^0.3.2",
-    "passport-http": "^0.3.0"
+    "passport-jwt": "^1.2.1"
   }
 }

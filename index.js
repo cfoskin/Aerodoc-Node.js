@@ -1,30 +1,38 @@
 'use strict';
 
 const express = require('express');
-const bodyParser = require('body-parser');
 const app = express();
+const routes = express.Router();
+const bodyParser = require('body-parser');
+const morgan = require('morgan');
 const exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
-// const Lead = require('./app/api/lead');
-// const SalesAgent = require('./app/api/salesAgent');
-// const PushConfig = require('./app/api/pushConfig');
- const Admin = require('./app/api/admin');
+const config = require('./config/config');
+
+//Api
+const LeadApi = require('./app/api/lead');
+const SalesAgentApi = require('./app/api/salesAgent');
+const PushConfigApi = require('./app/api/pushConfig');
+const AdminApi = require('./app/api/admin');
+
+//controllers
 const Account = require('./app/controllers/account');
 const Lead = require('./app/controllers/leads');
-
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-mongoose.connect('mongodb://localhost:/aerodoc', (err, database) => {
+app.use(morgan('dev'));
+
+mongoose.connect(config.database, (err, database) => {
     if (err) return console.log(err, 'Error connecting to database')
     app.listen(3000, () => {
         console.log('Server started on 3000')
     })
-})
+});
 
 const hbs = exphbs.create({
     defaultLayout: 'main',
@@ -37,32 +45,33 @@ app.engine('.hbs', exphbs({ extname: '.hbs' }));
 app.set('view engine', '.hbs');
 
 //App routes
-app.get('/', Account.main);
-
-app.post('/leads', Account.logIn);
-
-app.get('/leads', Lead.getAll);
-app.post('/lead', Lead.createLead);
+routes.get('/', Account.logIn);
+routes.post('/logIn', Account.authenticate);
+//protect routes from here
+routes.use(Account.verifyToken);
+routes.get('/leads', Lead.getAll);
+routes.post('/lead', Lead.createLead);
+app.use('/', routes);
 
 //API routes
-// app.post('/api/admin', Admin.create);
-// app.get('/api/admin/:id', Admin.get);
-// app.get('/api/admins', Admin.getAll);
-// app.delete('/api/admin/:id', Admin.delete);
+app.post('/api/admin', AdminApi.create);
+app.get('/api/admin/:id', AdminApi.get);
+app.get('/api/admins', AdminApi.getAll);
+app.delete('/api/admin/:id', AdminApi.delete);
 
-// app.get('/api/leads', Lead.getAll);
-// app.get('/api/lead/:id', Lead.getOne);
-// app.post('/api/lead', Lead.create);
-// app.put('/api/lead/:id', Lead.update);
-// app.delete('/api/lead/:id', Lead.delete);
+app.get('/api/leads', LeadApi.getAll);
+app.get('/api/lead/:id', LeadApi.getOne);
+app.post('/api/lead', LeadApi.create);
+app.put('/api/lead/:id', LeadApi.update);
+app.delete('/api/lead/:id', LeadApi.delete);
 
-// app.get('/api/salesAgents', SalesAgent.getAll);
-// app.get('/api/salesAgent/:id', SalesAgent.getOne);
-// app.post('/api/salesAgent', SalesAgent.create);
-// app.put('/api/salesAgent/:id', SalesAgent.update);
+app.get('/api/salesAgents', SalesAgentApi.getAll);
+app.get('/api/salesAgent/:id', SalesAgentApi.getOne);
+app.post('/api/salesAgent', SalesAgentApi.create);
+app.put('/api/salesAgent/:id', SalesAgentApi.update);
 
-// app.get('/api/pushConfigs', PushConfig.getAll);
-// app.get('/api/pushConfig/:id', PushConfig.getOne);
-// app.post('/api/pushConfig', PushConfig.create);
-// app.put('/api/pushConfig/:id', PushConfig.update);
-// app.delete('/api/pushConfig/:id', PushConfig.delete);
+app.get('/api/pushConfigs', PushConfigApi.getAll);
+app.get('/api/pushConfig/:id', PushConfigApi.getOne);
+app.post('/api/pushConfig', PushConfigApi.create);
+app.put('/api/pushConfig/:id', PushConfigApi.update);
+app.delete('/api/pushConfig/:id', PushConfigApi.delete);

@@ -8,7 +8,6 @@ exports.create = (req, res) => {
     lead.save()
         .then(newLead => {
                 res.json({ message: 'Lead created', data: newLead });
-                //res.render('leads');
         })
         .catch(err => {
              res.send(Boom.badImplementation('error creating Lead'));

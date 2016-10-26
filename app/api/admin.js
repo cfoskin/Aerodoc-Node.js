@@ -5,7 +5,6 @@ const Boom = require('boom');
 
 exports.create = (req, res) => {
     const admin = new Admin(req.body);
-    console.log(admin);
     admin.save()
         .then(newAdmin => {
              return res.json({ message: 'Admin created', data: newAdmin }); })
