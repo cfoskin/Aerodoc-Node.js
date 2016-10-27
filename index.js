@@ -10,17 +10,6 @@ const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 const config = require('./config/config');
 
-//Api
-const LeadApi = require('./app/api/lead');
-const SalesAgentApi = require('./app/api/salesAgent');
-const PushConfigApi = require('./app/api/pushConfig');
-const AdminApi = require('./app/api/admin');
-
-//controllers
-const Account = require('./app/controllers/account');
-const Lead = require('./app/controllers/leads');
-const PushConfig = require('./app/controllers/pushConfig');
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
@@ -45,41 +34,7 @@ app.engine('handlebars', hbs.engine);
 app.engine('.hbs', exphbs({ extname: '.hbs' }));
 app.set('view engine', '.hbs');
 
-//App routes
-routes.get('/', Account.logIn);
-routes.get('/pushConfig', Account.pushConfig);
-routes.get('/newpushConfig', PushConfig.getPushConfig);
-routes.post('/newPushConfig', PushConfig.createPushConfig);
-routes.get('/newLead', Lead.getNewLead);
-
-
-routes.post('/logIn', Account.authenticate)
-//protect routes from here
-//auth off while doing dev
-//routes.use(Account.verifyToken);
-routes.get('/leads', Lead.getAll);
-routes.post('/newLead', Lead.createLead);
-app.use('/', routes);
-
-//API routes
-app.post('/api/admin', AdminApi.create);
-app.get('/api/admin/:id', AdminApi.get);
-app.get('/api/admins', AdminApi.getAll);
-app.delete('/api/admin/:id', AdminApi.delete);
-
-app.get('/api/leads', LeadApi.getAll);
-app.get('/api/lead/:id', LeadApi.getOne);
-app.post('/api/lead', LeadApi.create);
-app.put('/api/lead/:id', LeadApi.update);
-app.delete('/api/lead/:id', LeadApi.delete);
-
-app.get('/api/salesAgents', SalesAgentApi.getAll);
-app.get('/api/salesAgent/:id', SalesAgentApi.getOne);
-app.post('/api/salesAgent', SalesAgentApi.create);
-app.put('/api/salesAgent/:id', SalesAgentApi.update);
-
-app.get('/api/pushConfigs', PushConfigApi.getAll);
-app.get('/api/pushConfig/:id', PushConfigApi.getOne);
-app.post('/api/pushConfig', PushConfigApi.create);
-app.put('/api/pushConfig/:id', PushConfigApi.update);
-app.delete('/api/pushConfig/:id', PushConfigApi.delete);
+var router = require('./routes');
+var api = require('./routesApi');
+app.use('/api', api);
+app.use('/', router);

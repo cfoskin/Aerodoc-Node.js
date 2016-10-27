@@ -16,7 +16,7 @@ exports.createLead = (req, res) => {
         })
 };
 
-exports.getAll = (req, res) => {
+exports.listAll = (req, res) => {
     Lead.find({}).exec()
         .then(allLeads => {
             res.render('leads', {

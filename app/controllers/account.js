@@ -26,7 +26,8 @@ exports.authenticate = (req, res) => {
              this.token = jwt.sign(foundAdmin, secret, {
                 expiresIn: 1440 
             });
-            res.redirect('/leads' + '?token=' + this.token);
+            //res.redirect('/leads' + '?token=' + this.token);
+            res.redirect('/leads');
         }
     }).catch(err => {
         res.json({ success: false, message: 'Authentication failed. Admin user not found.' })
