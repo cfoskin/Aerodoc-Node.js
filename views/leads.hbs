@@ -1,0 +1,61 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title> Home
+    </title>
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+
+    <body>
+        <div class="btn-toolbar">
+            <div class="btn-group">
+                <a href="/" class="btn btn-primary" id="signout">Sign Out</a>
+                <a href="/pushConfig" class="btn btn-primary" id="pushConfig">Push Configuration</a>
+            </div>
+        </div>
+</head>
+<div class="page-header">
+    <h3 class="text-center">
+       Aerodoc 
+      </h3>
+</div>
+<div class="container" id="container" align="middle">
+    <div class="panel panel-primary" style="width: 60%" align="middle">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+            Leads List
+          </h3>
+        </div>
+        <div class="panel-body" style="max-height: 300;overflow-y: scroll;">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Location</th>
+                        <th>Phone Number</th>
+                        <th>Sales Agent</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each allLeads}}
+                    <tr>
+                        <td> {{name}}</td>
+                        <td> {{location}} </td>
+                        <td> {{phNo}} </td>
+                        <td> {{salesAgent}} </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+        <a href="/newLead" class="btn btn-primary" id="newLead">Create New Lead</a>
+        <br>
+        <br>
+    </div>
+</div>
+</body>
+
+</html>

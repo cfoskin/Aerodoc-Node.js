@@ -48,13 +48,17 @@ app.set('view engine', '.hbs');
 //App routes
 routes.get('/', Account.logIn);
 routes.get('/pushConfig', Account.pushConfig);
-routes.get('/newpushConfig', PushConfig.viewNewPushConfig);
+routes.get('/newpushConfig', PushConfig.getPushConfig);
+routes.post('/newPushConfig', PushConfig.createPushConfig);
+routes.get('/newLead', Lead.getNewLead);
 
-routes.post('/logIn', Account.authenticate);
+
+routes.post('/logIn', Account.authenticate)
 //protect routes from here
-routes.use(Account.verifyToken);
-routes.get('/home', Lead.getAll);
-routes.post('/lead', Lead.createLead);
+//auth off while doing dev
+//routes.use(Account.verifyToken);
+routes.get('/leads', Lead.getAll);
+routes.post('/newLead', Lead.createLead);
 app.use('/', routes);
 
 //API routes

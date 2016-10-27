@@ -6,15 +6,14 @@ const Boom = require('boom')
 const jwt = require('jsonwebtoken');
 const config = require('../../config/config');
 const secret = config.secret;
-
+const token = '';
 
 exports.logIn = (req, res) => {
     res.render('login');
 };
 
 exports.logOut = function (request, reply) {
-    console.log('It got in!');
-    reply.redirect('/');
+    reply.render('/');
 };
 
 exports.authenticate = (req, res) => {
@@ -22,15 +21,15 @@ exports.authenticate = (req, res) => {
         username: req.body.username
     }).then(foundAdmin => {
         if (foundAdmin.password != req.body.password) {
-            res.status(200).json({ success: false, message: 'Authentication failed. Wrong password.' });
+            res.json({ success: false, message: 'Authentication failed. Wrong password.' });
         } else {
-            var token = jwt.sign(foundAdmin, secret, {
+             this.token = jwt.sign(foundAdmin, secret, {
                 expiresIn: 1440 
             });
-            res.redirect('/home' + '?token=' + token);
+            res.redirect('/leads' + '?token=' + this.token);
         }
     }).catch(err => {
-        res.status(401).json({ success: false, message: 'Authentication failed. Admin user not found.' })
+        res.json({ success: false, message: 'Authentication failed. Admin user not found.' })
     });
 };
 
@@ -39,7 +38,7 @@ exports.verifyToken = (req, res, next) => {
     if (token) {
         jwt.verify(token, secret, (err, decoded) => {
             if (err) {
-                return res.status(400).json({ success: false, message: 'Failed to authenticate token.' });
+                return res.json({ success: false, message: 'Failed to authenticate token.' });
             } else {
                 req.decoded = decoded;
                 next();
@@ -56,7 +55,7 @@ exports.verifyToken = (req, res, next) => {
 exports.pushConfig = (req, res) => {
     PushConfig.find({}).exec()
         .then(allPushConfigs => {
-            res.render('pushConfig', {
+            res.render('pushConfigs', {
                 allPushConfigs: allPushConfigs
             });
         })
