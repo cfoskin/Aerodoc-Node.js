@@ -15,6 +15,8 @@ router.get('/pushConfig', Account.pushConfig);
 router.get('/newpushConfig', PushConfig.getPushConfig);
 router.post('/newPushConfig', PushConfig.createPushConfig);
 router.get('/newLead', Lead.getNewLead);
+router.get('/showLead/:id', Lead.getOne);
+
 //protect routes from here
 //auth off while doing dev
 //routes.use(Account.verifyToken);

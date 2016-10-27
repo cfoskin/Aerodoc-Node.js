@@ -5,6 +5,19 @@ exports.getNewLead = (req, res) => {
     res.render('newLead');
 };
 
+exports.getOne = (req, res) => {
+    Lead.findOne({ _id: req.params.id })
+        .then(lead => {
+            if (lead != null) {
+                 res.render('showLead', {
+                lead: lead
+            });
+            };
+        })
+        .catch(err => {
+             res.send(Boom.notFound('id not found!')); })
+};
+
 exports.createLead = (req, res) => {
     const lead = new Lead(req.body);
     lead.save()
