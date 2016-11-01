@@ -1,6 +1,6 @@
 'use strict';
 
-const Admin = require('../models/Admin');
+const SalesAgent = require('../models/SalesAgent');
 const PushConfig = require('../models/PushConfig');
 const Boom = require('boom')
 const jwt = require('jsonwebtoken');
@@ -17,20 +17,21 @@ exports.logOut = function (request, reply) {
 };
 
 exports.authenticate = (req, res) => {
-    Admin.findOne({
-        username: req.body.username
-    }).then(foundAdmin => {
-        if (foundAdmin.password != req.body.password) {
+    console.log(req.body.name);
+    SalesAgent.findOne({
+        name: req.body.name
+    }).then(foundSalesAgent => {
+        if (foundSalesAgent.password != req.body.password) {
             res.json({ success: false, message: 'Authentication failed. Wrong password.' });
         } else {
-             this.token = jwt.sign(foundAdmin, secret, {
+             this.token = jwt.sign(foundSalesAgent, secret, {
                 expiresIn: 1440 
             });
             //res.redirect('/leads' + '?token=' + this.token);
             res.redirect('/leads');
         }
     }).catch(err => {
-        res.json({ success: false, message: 'Authentication failed. Admin user not found.' })
+        res.json({ success: false, message: 'Authentication failed. Sales Agent not found.' })
     });
 };
 

@@ -3,16 +3,11 @@ var express = require('express');
 const LeadApi = require('./app/api/lead');
 const SalesAgentApi = require('./app/api/salesAgent');
 const PushConfigApi = require('./app/api/pushConfig');
-const AdminApi = require('./app/api/admin');
 
 module.exports = (function() {
     'use strict';
     var api = express.Router();
     //API routes
-    api.post('/admin', AdminApi.create);
-    api.get('/admin/:id', AdminApi.get);
-    api.get('/admins', AdminApi.getAll);
-    api.delete('/admin/:id', AdminApi.delete);
 
     api.get('/leads', LeadApi.getAll);
     api.get('/lead/:id', LeadApi.getOne);

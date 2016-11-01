@@ -1,0 +1,87 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title> Show Push Config 
+    </title>
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<script type="text/javascript">
+    var doUpdate = function(form) {
+        var inputs = form.getElementsByClassName('form-control')
+        var payload = {};
+        for (var i = 0;i < inputs.length; i++) {
+            payload[inputs[i].name] = inputs[i].value
+        }
+        var oReq = new XMLHttpRequest();
+        oReq.open("PUT", "/editPushConfig/{{pushConfig._id}}");
+        oReq.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        oReq.send(JSON.stringify(payload));
+        return false;
+    }
+</script>
+    <body>
+        <div class="btn-toolbar">
+            <div class="btn-group">
+                <a href="/" class="btn btn-primary" id="signout">Sign Out</a>
+                <a href="/leads" class="btn btn-primary" id="leads">Leads</a>
+                <a href="/pushConfig" class="btn btn-primary" id="pushConfig">Push Configuration</a>
+            </div>
+        </div>
+<div class="page-header">
+    <h3 class="text-center">
+       Aerodoc 
+      </h3>
+</div>
+<div class="container" id="container" align="middle">
+    <div class="panel panel-primary" style="width: 80%" align="middle">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+              Push Configuration Details
+          </h3>
+        </div>
+        <div class="panel-body">
+         <form  onSubmit="return doUpdate(this)">
+                <div class="form-group">
+                    <label>
+                        Push Server URL
+                    </label>
+                    <input class="form-control" type="text" name="serverURL" value="{{pushConfig.serverURL}}">
+                </div>
+                <div class="form-group">
+                    <label>
+                        Push Application ID
+                    </label>
+                    <input class="form-control" type="text" name="pushApplicationId" value="{{pushConfig.pushApplicationId}}">
+                </div>
+                <div class="form-group">
+                    <label>
+                        Master Secret
+                    </label>
+                    <input class="form-control" placeholder="Enter Master Secret" type="text" name="masterSecret" value="{{pushConfig.masterSecret}}">
+                </div>
+                <div class="form-group">
+                    <label>
+                        Active ?
+                        <label class="checkbox">
+                        <input class="form-control" type="checkbox" name="active" value="{{pushConfig.active}}">
+                    </label>
+                    </label>
+                </div>
+                    <a href="/pushConfig" class="btn pull-left btn-warning" id="cancel">Cancel </a>
+                    <button  class="btn pull-right btn-primary" id="editPushConfig">
+                        Edit Push Config!
+                    </button>
+                </div>
+            </div>
+        </form>
+        </div>
+        <br>
+        <br>
+    </div>
+</div>
+</body>
+
+</html>

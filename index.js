@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
+require('mongoose-double')(mongoose);
 mongoose.Promise = require('bluebird');
 const config = require('./config/config');
 

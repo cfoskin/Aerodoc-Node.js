@@ -28,6 +28,7 @@
     "jwt-simple": "^0.3.1",
     "mongodb": "^2.2.10",
     "mongoose": "^4.6.3",
+    "mongoose-double": "0.0.1",
     "morgan": "^1.7.0",
     "passport": "^0.3.2",
     "passport-jwt": "^1.2.1"
