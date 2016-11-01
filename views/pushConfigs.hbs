@@ -44,6 +44,10 @@
                         <td> {{serverURL}}</td>
                         <td> {{pushApplicationId}} </td>
                         <td> {{active}} </td>
+                         <td> <form action="/editPushConfig/{{_id}}" method="GET">
+                                <input type="submit" class="btn btn-success btn-sm pull-right" value="Edit" />
+                            </form>
+                        </td>
                     </tr>
                     {{/each}}
                 </tbody>

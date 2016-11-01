@@ -16,7 +16,7 @@ module.exports = (function() {
 
     api.get('/leads', LeadApi.getAll);
     api.get('/lead/:id', LeadApi.getOne);
-    api.post('/lead', LeadApi.create);
+    api.post('/leads', LeadApi.create);
     api.put('/lead/:id', LeadApi.update);
     api.delete('/lead/:id', LeadApi.delete);
 

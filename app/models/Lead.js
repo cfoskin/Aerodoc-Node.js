@@ -12,7 +12,7 @@ const leadSchema = mongoose.Schema({
   	type: String,
   	required: true
   },
-  phNo: {
+  phoneNumber: {
   	type: String,
   	required: true
   },

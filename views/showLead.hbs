@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title> Show Lead 
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <title> Show Lead
     </title>
     <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
 
@@ -30,33 +31,30 @@
           </h3>
         </div>
         <div class="panel-body">
-        <table class="table">
-        <thead>
+            <table class="table">
+                <thead>
                     <tr>
                         <th>Name</th>
                         <th>Location</th>
                         <th>Phone Number</th>
                     </tr>
                 </thead>
-      <tbody>
-        <tr>
-          <td>
-            {{lead.name}}
-          </td>
-          <td>
-      {{lead.location}}
-
-          </td>
-          <td>
-      {{lead.phNo}}
-          </td>
-        </tr>
-      </tbody>
-    </table>
+                <tbody>
+                    <tr>
+                        <td>
+                            {{lead.name}}
+                        </td>
+                        <td>
+                            {{lead.location}}
+                        </td>
+                        <td>
+                            {{lead.phoneNumber}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        <br>
-        <br>
-    </div>
+            </div>
 </div>
 </body>
 

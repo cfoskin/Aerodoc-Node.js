@@ -16,6 +16,41 @@ exports.getOne = (req, res) => {
         })
         .catch(err => {
              res.send(Boom.notFound('id not found!')); })
+
+        function ShowLeadController($scope, $routeParams, $location, $filter,
+        dataService) {
+    var map = new AeroGear.Map();
+
+    var self = this;
+    $scope.disabled = false;
+    var leadPipe = dataService.leadPipe;
+    var saleAgentPipe = dataService.saleAgentPipe;
+    var searchAgents = dataService.searchAgents;
+    var sendLeads = AeroGear.Pipeline({
+        name : "sendleads",
+        settings : {
+        }
+    }).pipes.sendleads;
+
+    function searchAgentsInRange(location, radius) {
+        var searchAgents = AeroGear.Pipeline({
+            name: "searchAgents",
+            settings: {
+                endpoint: "rest/saleagents/searchAgentsInRange/"
+            }
+        }).pipes.searchAgents;
+
+        searchAgents.read({
+            query: {
+                latitude: location.lat,
+                longitude: location.lon,
+                radius: radius / 1000
+            },
+            success: function (data) {
+            }
+        });
+    }
+}
 };
 
 exports.createLead = (req, res) => {
@@ -40,3 +75,5 @@ exports.listAll = (req, res) => {
             res.end('error retrieving the leads from database!');
         })
 };
+
+
