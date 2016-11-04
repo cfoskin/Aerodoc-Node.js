@@ -11,16 +11,13 @@ module.exports = (function() {
     router.post('/logIn', Account.authenticate);
     //App routes
     router.get('/', Account.logIn);
-    router.get('/pushConfig', Account.pushConfig);
+    router.get('/pushConfigs', Account.pushConfig);
     router.get('/newpushConfig', PushConfig.getPushConfig);
     router.post('/newPushConfig', PushConfig.createPushConfig);
     router.get('/newLead', Lead.getNewLead);
     router.get('/showLead/:id', Lead.getOne);
     router.get('/editPushConfig/:id', PushConfig.getOne);
     router.put('/editPushConfig/:id/', PushConfig.update);
-    //protect routes from here
-    //auth off while doing dev
-    //routes.use(Account.verifyToken);
     router.get('/leads', Lead.listAll);
     router.post('/newLead', Lead.createLead);
     return router;

@@ -9,13 +9,15 @@ exports.getOne = (req, res) => {
     Lead.findOne({ _id: req.params.id })
         .then(lead => {
             if (lead != null) {
-                 res.render('showLead', {
-                lead: lead
-            });
+                res.render('showLead', {
+                    lead: lead
+                });
             };
         })
         .catch(err => {
-             res.send(Boom.notFound('id not found!')); })
+            res.json({ success: false, message: 'Id not found.' });
+        })
+};
 
 exports.createLead = (req, res) => {
     const lead = new Lead(req.body);
@@ -36,8 +38,6 @@ exports.listAll = (req, res) => {
             });
         })
         .catch(err => {
-            res.end('error retrieving the leads from database!');
+            res.json({ success: false, message: 'error retrieving the leads from database!' });
         })
 };
-
-
