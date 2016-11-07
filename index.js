@@ -45,3 +45,5 @@ var router = require('./routes');
 var api = require('./routesApi');
 app.use('/api', api);
 app.use('/', router);
+
+module.exports =app;

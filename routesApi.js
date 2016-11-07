@@ -14,11 +14,13 @@ module.exports = (function() {
     api.post('/leads', LeadApi.create);
     api.put('/lead/:id', LeadApi.update);
     api.delete('/lead/:id', LeadApi.delete);
+    api.delete('/leads/deleteAll', LeadApi.deleteAll);
 
     api.get('/salesAgents', SalesAgentApi.getAll);
     api.get('/salesAgent/:id', SalesAgentApi.getOne);
     api.post('/salesAgent', SalesAgentApi.create);
     api.put('/salesAgent/:id', SalesAgentApi.update);
+    api.delete('/salesAgent/:id', SalesAgentApi.delete);
 
     api.get('/pushConfigs', PushConfigApi.getAll);
     api.get('/pushConfig/:id', PushConfigApi.getOne);

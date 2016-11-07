@@ -7,10 +7,10 @@ exports.create = (req, res) => {
     const lead = new Lead(req.body);
     lead.save()
         .then(newLead => {
-                res.json({ message: 'Lead created', data: newLead });
+            return res.status(201).json(lead);
         })
         .catch(err => {
-             res.send(Boom.badImplementation('error creating Lead'));
+            return res.status(500).end('Error creating Lead');
         })
 };
 
@@ -18,42 +18,52 @@ exports.getOne = (req, res) => {
     Lead.findOne({ _id: req.params.id })
         .then(lead => {
             if (lead != null) {
-                return res.send(lead)
+                return res.status(200).json(lead)
             };
         })
         .catch(err => {
-             res.send(Boom.notFound('id not found!')); })
+            return res.status(404).end('id not found');
+        })
 };
 
 exports.getAll = (req, res) => {
     Lead.find({}).exec()
         .then(leads => {
-            return res.json(leads);})
+            return res.status(200).json(leads);
+        })
         .catch(err => {
-             res.send(Boom.badImplementation('error retrieving the leads from database!'));
+            return res.status(404).end('id not found');
         })
 };
 
-
+exports.deleteAll = (req, res) => {
+    Lead.remove({})
+        .then(err => {
+            return res.status(204);
+        })
+        .catch(err => {
+            return res.status(404).end('Error retrieving the leads from database!');
+        })
+};
 
 exports.update = (req, res) => {
     Lead.findOneAndUpdate({ _id: req.params.id }, { $set: req.body }, { 'new': true })
         .then(lead => {
             if (lead != null) {
-                return res.json({ message: 'Lead updated!', data: lead });
+                return res.status(200).json(lead);
             }
         })
         .catch(err => {
-             res.send(Boom.notFound('id not found!')); })
+            return res.status(404).end('id not found');
+        })
 };
 
 exports.delete = (req, res) => {
     Lead.remove({ _id: req.params.id })
         .then(lead => {
-            return res.json({ message: 'lead deleted', Lead }).code(204);
+            return res.status(204).json(lead);
         })
         .catch(err => {
-            return res.end('id not found');
-             // return res.end(Boom.notFound('id not found'));
+            return res.status(404).end('id not found');
         });
 };
