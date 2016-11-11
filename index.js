@@ -46,4 +46,4 @@ var api = require('./routesApi');
 app.use('/api', api);
 app.use('/', router);
 
-module.exports =app;
+module.exports = app;

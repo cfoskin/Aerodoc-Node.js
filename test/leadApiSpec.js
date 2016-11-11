@@ -23,7 +23,7 @@ describe('Lead API Integration Tests', () => {
             .post(leadsUrl)
             .send(lead)
             .end((err, res) => {
-                expect(res.body).to.have.property("name", "lead3");
+                expect(res.body).to.have.property("name", "leadawkdjlshf3");
                 expect(res.body).to.have.property("location", "Kilkenny");
                 expect(res.body).to.have.property("phoneNumber", "3333");
                 expect(res.body).to.have.property("salesAgent", "agent3");
