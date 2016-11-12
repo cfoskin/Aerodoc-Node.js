@@ -67,3 +67,10 @@ exports.delete = (req, res) => {
             return res.status(404).end('id not found');
         });
 };
+
+exports.sendLeads = (req, res) => {
+   
+};
+
+
+

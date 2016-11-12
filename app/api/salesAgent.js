@@ -56,3 +56,10 @@ exports.delete = (req, res) => {
             return res.status(404).end('id not found');
         });
 };
+
+exports.searchAgents = (req, res) => {
+};
+
+exports.searchAgentsInRange = (req, res) => {
+};
+

@@ -7,8 +7,7 @@ const should = require('chai').should;
 const expect = require('chai').expect;
 
 let leads = fixtures.leads;
-const leadUrl = '/api/lead/';
-const leadsUrl = '/api/leads';
+const leadsUrl = '/api/leads/';
 var leadId;
 
 describe('Lead API Integration Tests', () => {
@@ -45,7 +44,7 @@ describe('Lead API Integration Tests', () => {
 
     it('Should get one lead', (done) => {
         supertest(app)
-            .get(leadUrl + leadId)
+            .get(leadsUrl + leadId)
             .end((err, res) => {
                 expect(res.statusCode).to.be.equal(200);
                 done();
@@ -54,7 +53,7 @@ describe('Lead API Integration Tests', () => {
 
     it('Should delete one lead', (done) => {
         supertest(app)
-            .delete(leadUrl + leadId)
+            .delete(leadsUrl + leadId)
             .end((err, res) => {
                 expect(res.statusCode).to.be.equal(204);
                 done();

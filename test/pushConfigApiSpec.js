@@ -8,7 +8,6 @@ const expect = require('chai').expect;
 
 let pushConfigs = fixtures.pushConfigs;
 const pushConfigUrl = '/api/pushConfig/';
-const allPushConfigsUrl = '/api/pushConfigs';
 var pushConfigId;
 
 describe('Push Configuration API Integration Tests', () => {
@@ -35,7 +34,7 @@ describe('Push Configuration API Integration Tests', () => {
 
     it('Should get all Push Configs', (done) => {
         supertest(app)
-            .get(allPushConfigsUrl)
+            .get(pushConfigUrl)
             .end((err, res) => {
                 expect(Array.isArray(res.body));
                 expect(res.statusCode).to.be.equal(200);
@@ -72,8 +71,5 @@ describe('Push Configuration API Integration Tests', () => {
                 done();
             });
     });
-
-
-
 
 });

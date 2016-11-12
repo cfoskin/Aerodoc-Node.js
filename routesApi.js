@@ -9,24 +9,29 @@ module.exports = (function() {
     var api = express.Router();
     //API routes
 
-    api.get('/leads', LeadApi.getAll);
-    api.get('/lead/:id', LeadApi.getOne);
     api.post('/leads', LeadApi.create);
-    api.put('/lead/:id', LeadApi.update);
-    api.delete('/lead/:id', LeadApi.delete);
-    api.delete('/leads/deleteAll', LeadApi.deleteAll);
+    api.delete('/leads/:id', LeadApi.delete);
+    api.get('/leads/:id', LeadApi.getOne);
+    api.get('/leads', LeadApi.getAll);
+    api.put('/leads/:id', LeadApi.update);
+    //new
+    api.post('/leads/sendleads/:id', LeadApi.sendLeads);
 
+    api.post('/salesAgents', SalesAgentApi.create);
+    api.delete('/salesAgents/:id', SalesAgentApi.delete);
+    api.get('/salesAgents/:id', SalesAgentApi.getOne);
     api.get('/salesAgents', SalesAgentApi.getAll);
-    api.get('/salesAgent/:id', SalesAgentApi.getOne);
-    api.post('/salesAgent', SalesAgentApi.create);
-    api.put('/salesAgent/:id', SalesAgentApi.update);
-    api.delete('/salesAgent/:id', SalesAgentApi.delete);
+    api.put('/salesAgents/:id', SalesAgentApi.update);
+    //new routes 
+    api.get('/salesAgents/searchagents', SalesAgentApi.searchAgents);
+    api.get('/salesAgents/searchagentsinrange', SalesAgentApi.searchAgentsInRange);
 
-    api.get('/pushConfigs', PushConfigApi.getAll);
-    api.get('/pushConfig/:id', PushConfigApi.getOne);
+
     api.post('/pushConfig', PushConfigApi.create);
-    api.put('/pushConfig/:id', PushConfigApi.update);
     api.delete('/pushConfig/:id', PushConfigApi.delete);
+    api.get('/pushConfig/:id', PushConfigApi.getOne);
+    api.get('/pushConfig', PushConfigApi.getAll);
+    api.put('/pushConfig/:id', PushConfigApi.update);
 
     return api;
 })();
