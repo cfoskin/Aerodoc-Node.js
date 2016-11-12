@@ -68,9 +68,16 @@ exports.delete = (req, res) => {
         });
 };
 
-exports.sendLeads = (req, res) => {
-   
+exports.sendLeads = () => {
+   //send lead to a list of agents
 };
 
+exports.sendBroadcast = () => {
+   //send broadcast to all agents
+};
+
+var getActivePushConfig = () => {
+   //get the current active push config
+};
 
 

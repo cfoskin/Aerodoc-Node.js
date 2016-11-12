@@ -57,9 +57,9 @@ exports.delete = (req, res) => {
         });
 };
 
-exports.searchAgents = (req, res) => {
+exports.searchAgents = () => {
 };
 
-exports.searchAgentsInRange = (req, res) => {
+exports.searchAgentsInRange = () => {
 };
 

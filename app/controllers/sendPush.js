@@ -1,5 +1,7 @@
 'use strict';
-
+/**
+controller for sending dummy push notifications while testing.
+*/
 const agSender = require('unifiedpush-node-sender');
 const settings = require('../../config/config.js');
 

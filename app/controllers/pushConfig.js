@@ -42,3 +42,8 @@ exports.update = (req, res) => {
             res.json({ success: false, message: 'Id not found.' });
         })
 };
+
+exports.findActiveConfig = () => {
+    //finds the only active config on the system
+};
+
