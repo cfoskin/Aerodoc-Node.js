@@ -1,7 +1,6 @@
 'use strict';
 
 const PushConfig = require('../models/PushConfig');
-const Boom = require('boom');
 
 exports.create = (req, res) => {
     const pushConfig = new PushConfig(req.body);

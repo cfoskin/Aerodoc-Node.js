@@ -3,8 +3,6 @@
 const SalesAgent = require('../models/SalesAgent');
 const PushConfig = require('../models/PushConfig');
 const config = require('../../config/config');
-const secret = config.secret;
-const token = '';
 
 exports.logIn = (req, res) => {
     res.render('login');

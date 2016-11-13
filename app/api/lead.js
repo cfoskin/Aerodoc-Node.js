@@ -1,7 +1,6 @@
 'use strict';
 
 const Lead = require('../models/Lead');
-const Boom = require('boom');
 
 exports.create = (req, res) => {
     const lead = new Lead(req.body);
