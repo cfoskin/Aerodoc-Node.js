@@ -8,7 +8,8 @@ const morgan = require('morgan');
 const exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
 require('mongoose-double')(mongoose);
-mongoose.Promise = require('bluebird');
+mongoose.Promise = global.Promise;
+
 const config = require('./config/config');
 
 app.use(bodyParser.json());
