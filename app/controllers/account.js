@@ -5,7 +5,7 @@ const PushConfig = require('../models/PushConfig');
 const config = require('../../config/config');
 
 exports.logIn = (req, res) => {
-    res.render('login');
+    res.render('logIn');
 };
 
 exports.logOut = function(request, reply) {
