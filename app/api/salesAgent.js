@@ -6,9 +6,9 @@ exports.create = (req, res) => {
     const salesAgent = new SalesAgent(req.body);
     salesAgent.save()
         .then(newSalesAgent => { 
-           return res.status(201).json(salesAgent); })
+           return res.status(201).json(newSalesAgent); })
         .catch(err => {  
-            return res.status(500).end('Error creating sales agent');
+          return res.status(500).end('Error creating sales agent');
              })
 };
 

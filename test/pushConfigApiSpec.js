@@ -6,7 +6,7 @@ const fixtures = require('./fixtures.json');
 const should = require('chai').should;
 const expect = require('chai').expect;
 
-let pushConfigs = fixtures.pushConfigs;
+const pushConfigs = fixtures.pushConfigs;
 const pushConfigUrl = '/api/pushConfig/';
 var pushConfigId;
 
