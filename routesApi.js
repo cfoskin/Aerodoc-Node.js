@@ -1,4 +1,4 @@
-var express = require('express');
+const express = require('express');
 //Api
 const LeadApi = require('./app/api/lead');
 const SalesAgentApi = require('./app/api/salesAgent');
@@ -6,7 +6,7 @@ const PushConfigApi = require('./app/api/pushConfig');
 
 module.exports = (function() {
     'use strict';
-    var api = express.Router();
+    const api = express.Router();
     //API routes
 
     api.post('/leads', LeadApi.create);

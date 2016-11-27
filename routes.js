@@ -1,4 +1,4 @@
-var express = require('express');
+const express = require('express');
 //controllers
 const Account = require('./app/controllers/account');
 const Lead = require('./app/controllers/leads');
@@ -7,7 +7,7 @@ const PushConfig = require('./app/controllers/pushConfig');
 module.exports = (function() {
     'use strict';
 
-    var router = express.Router();
+    const router = express.Router();
     router.post('/logIn', Account.authenticate);
     //App routes
     router.get('/', Account.logIn);
@@ -20,5 +20,7 @@ module.exports = (function() {
     router.put('/editPushConfig/:id/', PushConfig.update);
     router.get('/leads', Lead.listAll);
     router.post('/newLead', Lead.createLead);
+    router.get('/searchagents',  Lead.searchAgents);
+
     return router;
 })();
