@@ -67,7 +67,7 @@ exports.searchAgents = (req, res) => {
     if (req.query.status != '') {
         path = Object.keys(req.query)[0];
         filterObject = createFilterObject(path, req.query.status);
-    } else if (req.query.location) {
+    } else if (req.query.location != '') {
         path = Object.keys(req.query)[1];
         filterObject = createFilterObject(path, req.query.location);
     }
