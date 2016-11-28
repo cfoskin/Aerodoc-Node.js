@@ -31,10 +31,10 @@ const options = {
     }
 };
 
-exports.sendPush = function () {
+exports.sendPush = function() {
     agSender(settings).then((client) => {
-    client.sender.send(message, options).then((response) => {
-        console.log('success', response);
-    })
-});
+        client.sender.send(message, options).then((response) => {
+            console.log('success', response);
+        })
+    });
 }
