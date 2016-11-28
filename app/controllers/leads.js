@@ -54,6 +54,7 @@ var createFilterObject = (path, filter) => {
 
 exports.searchAgents = (req, res) => {
     let currLead = {};
+
     Lead.findOne({ _id: req.query.leadId })
         .then(lead => {
             if (lead != null) { currLead = lead; }
@@ -64,6 +65,7 @@ exports.searchAgents = (req, res) => {
 
     let filterObject = {};
     let path = '';
+
     if (req.query.status != '') {
         path = Object.keys(req.query)[0];
         filterObject = createFilterObject(path, req.query.status);
@@ -71,7 +73,7 @@ exports.searchAgents = (req, res) => {
         path = Object.keys(req.query)[1];
         filterObject = createFilterObject(path, req.query.location);
     }
-    
+
     SalesAgent.find(filterObject || {})
         .exec().then(salesAgents => {
             res.render('showLead', {

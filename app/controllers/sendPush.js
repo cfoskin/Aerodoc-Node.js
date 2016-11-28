@@ -1,10 +1,15 @@
 'use strict';
-/**
-controller for sending dummy push notifications while testing.
-*/
+/* controller for sending dummy push notifications while testing */
 const agSender = require('unifiedpush-node-sender');
-const settings = require('../../config/config.js');
 
+/* settings of the push server to use */
+const settings = {
+    url: 'https://aerogear-pushee.rhcloud.com/ag-push',
+    applicationId: '502b2590-5ba3-471c-a7a2-dc9dfd48861a',
+    masterSecret: '81f88207-a9c8-458c-a217-e46bc03e5e69'
+};
+
+/* message to send */
 const message = {
     alert: 'send from node aerodoc test',
     sound: 'default',
@@ -15,23 +20,21 @@ const message = {
     }
 };
 
+/* message options */
 const options = {
     config: {
         ttl: 3600,
     },
     criteria: {
-    //    variants: ['1234', '56788'],
-        categories: ['category1', 'category2']
+        variants: ['ee1a8fb2-c4af-4e40-a3af-a711632f72e1'],
+        categories: ['category1']
     }
 };
 
-exports.send = function (){
-	agSender(settings.agpush).then((client) => {
-		console.log(client);
-    return client.send(message, options).then((result) => {
-        console.log(result);
-    }).catch(err => {
-            res.json({ success: false, message: 'Failed to send push' });
+exports.sendPush = function() {
+    agSender(settings).then((client) => {
+        client.sender.send(message, options).then((response) => {
+            console.log('success', response);
         })
-});
+    });
 }
