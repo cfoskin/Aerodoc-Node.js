@@ -90,7 +90,6 @@
                         <th>Name</th>
                         <th>Status</th>
                         <th>Location</th>
-
                     </tr>
                 </thead>
                 <tbody>
@@ -106,6 +105,11 @@
                     {{/each}}
                 </tbody>
             </table>
+            <form action="/sendPush" method="POST">
+                <button type="submit" class="btn  btn-success">             
+                Send Push
+                </button>
+            </form>
         </div>
     </div>
 </div>

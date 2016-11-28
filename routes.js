@@ -3,6 +3,7 @@ const express = require('express');
 const Account = require('./app/controllers/account');
 const Lead = require('./app/controllers/leads');
 const PushConfig = require('./app/controllers/pushConfig');
+const SendPush = require('./app/controllers/sendPush');
 
 module.exports = (function() {
     'use strict';
@@ -21,6 +22,7 @@ module.exports = (function() {
     router.get('/leads', Lead.listAll);
     router.post('/newLead', Lead.createLead);
     router.get('/searchagents',  Lead.searchAgents);
+    router.post('/sendPush', SendPush.sendPush);
 
     return router;
 })();
