@@ -9,8 +9,9 @@ const exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
 require('mongoose-double')(mongoose);
 mongoose.Promise = global.Promise;
-
 const config = require('./config/config');
+var path = require('path');
+app.use(express.static(path.join(__dirname, "/vendor/")));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({

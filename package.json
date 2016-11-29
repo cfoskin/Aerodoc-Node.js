@@ -26,11 +26,13 @@
     "express": "^4.14.0",
     "express-boom": "^1.0.0",
     "express-handlebars": "^3.0.0",
+    "jquery": "^3.1.1",
     "mocha": "3.1.2",
     "mongodb": "^2.2.10",
     "mongoose": "^4.6.3",
     "mongoose-double": "0.0.1",
     "morgan": "^1.7.0",
+    "node-geocoder": "^3.15.1",
     "supertest": "^2.0.1"
   }
 }
