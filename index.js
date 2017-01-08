@@ -47,7 +47,7 @@ var router = require('./routes');
 var api = require('./routesApi');
 app.use('/api', api);
 app.use('/', router);
+app.use(express.static(__dirname + '/public'));
 
 module.exports = app;
 
-//cff195e1f2313530a0c19a9cc62da072b4b41529
