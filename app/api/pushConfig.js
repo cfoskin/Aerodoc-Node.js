@@ -17,7 +17,7 @@ exports.getOne = (req, res) => {
         .then(pushConfig => {
             if (pushConfig != null) {
                 return res.status(200).json(pushConfig)
-            };
+            }
         })
         .catch(err => { 
             return res.status(404).end('id not found');

@@ -57,8 +57,8 @@ describe('Push Configuration API Integration Tests', () => {
             .send({ pushApplicationId: 'newId' })
             .end((err, res) => {
                 let pushConfig = res.body;
-                expect(res.body).to.have.property("pushApplicationId", "newId");
-                expect(res.body).to.not.have.property("pushApplicationId", "test");
+                expect(pushConfig).to.have.property("pushApplicationId", "newId");
+                expect(pushConfig).to.not.have.property("pushApplicationId", "test");
                 done();
             });
     });

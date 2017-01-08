@@ -18,7 +18,7 @@ exports.getOne = (req, res) => {
         .then(lead => {
             if (lead != null) {
                 return res.status(200).json(lead)
-            };
+            }
         })
         .catch(err => {
             return res.status(404).end('id not found');
