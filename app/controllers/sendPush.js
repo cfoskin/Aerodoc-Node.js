@@ -1,6 +1,6 @@
 'use strict';
 /* controller for sending dummy push notifications while testing */
-//const agSender = require('unifiedpush-node-sender');
+const agSender = require('unifiedpush-node-sender');
 
 /* settings of the push server to use */
 const settings = {
@@ -11,7 +11,7 @@ const settings = {
 
 /* message to send */
 const message = {
-    alert: 'send from node aerodoc test',
+    alert: 'A new lead has been created',
     sound: 'default',
     badge: 2,
     //simplePush: 'version=123',
@@ -23,7 +23,7 @@ const message = {
 /* message options */
 const options = {
     config: {
-        ttl: 3600,
+        ttl: 3600
     },
     // criteria: {
     //     variants: ['506f8218-f584-4860-ad1b-accdbf080f3d'],
@@ -35,6 +35,9 @@ exports.sendPush = function() {
     agSender(settings).then((client) => {
         client.sender.send(message, options).then((response) => {
             console.log('success', response);
+        })
+        .catch(err => {
+            console.log('failed to send', err);
         })
     });
 }
