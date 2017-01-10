@@ -1,6 +1,6 @@
 'use strict';
 /* controller for sending dummy push notifications while testing */
-//const agSender = require('unifiedpush-node-sender');
+const agSender = require('unifiedpush-node-sender');
 
 /* settings of the push server to use */
 const settings = {
