@@ -7,7 +7,7 @@ const should = require('chai').should;
 const expect = require('chai').expect;
 
 let leads = fixtures.leads;
-const leadsUrl = '/api/leads/';
+const leadsUrl = '/rest/leads/';
 var leadId;
 
 describe('Lead API Integration Tests', () => {

@@ -1,51 +1,53 @@
 {
-  "aerodoc": "http://localhost:3000",
-  "leads": [
-    {
-      "name": "lead1",
-      "location": "Waterford",
-      "phoneNumber": "1111",
-      "salesAgent": "agent1"
-    },
-  {
-      "name": "lead2",
-      "location": "Dublin",
-      "phoneNumber": "2222",
-      "salesAgent": "agent2"
-    },
-     {
-      "name": "lead3",
-      "location": "Kilkenny",
-      "phoneNumber": "3333",
-      "salesAgent": "agent3"
-    }
-  ],
-  "salesAgents": [
-    {
-      "name": "agent1",
-      "password": "secret",
-      "location": "Waterford",
-      "status": "pto"
-    },
-  {
-      "name": "agent2",
-      "password": "secret",
-      "location": "Waterford",
-      "status": "standby"
-    }
-  ],
-  "pushConfigs": [
-    {
-      "pushApplicationId": "test",
-      "masterSecret": "secret",
-      "serverURL": "testURL",
-      "active": true
-    },
-     {
-      "pushApplicationId": "test2",
-      "masterSecret": "secret",
-      "serverURL": "testURL",
-      "active": false
-    }
-  ]
+    "aerodoc": "http://localhost:3000",
+    "leads": [{
+        "name": "lead1",
+        "location": "Waterford",
+        "phoneNumber": "1111",
+        "salesAgent": "agent1"
+    }, {
+        "name": "lead2",
+        "location": "Dublin",
+        "phoneNumber": "2222",
+        "salesAgent": "agent2"
+    }, {
+        "name": "lead3",
+        "location": "Kilkenny",
+        "phoneNumber": "3333",
+        "salesAgent": "agent3"
+    }],
+    "salesAgents": [{
+            "loginName": "jake",
+            "password": "123",
+            "location": "Waterford",
+            "status": "with_client"
+        }, {
+            "loginName": "jake",
+            "password": "wrongpassword",
+            "location": "Waterford",
+            "status": "standby"
+        }, {
+            "loginName": "invalidAgent",
+            "password": "123",
+            "location": "Waterford",
+            "status": "standby"
+        }, {
+            "name": "agent1",
+            "password": "123",
+            "location": "Waterford",
+            "status": "with_client"
+        }
+
+    ],
+    "pushConfigs": [{
+        "pushApplicationId": "test",
+        "masterSecret": "secret",
+        "serverURL": "testURL",
+        "active": true
+    }, {
+        "pushApplicationId": "test2",
+        "masterSecret": "secret",
+        "serverURL": "testURL",
+        "active": false
+    }]
 }

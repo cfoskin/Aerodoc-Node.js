@@ -7,15 +7,10 @@ const should = require('chai').should;
 const expect = require('chai').expect;
 
 const pushConfigs = fixtures.pushConfigs;
-const pushConfigUrl = '/api/pushConfig/';
+const pushConfigUrl = '/rest/pushConfig/';
 var pushConfigId;
 
 describe('Push Configuration API Integration Tests', () => {
-
-    afterEach(function() {
-
-    });
-
     it('Should create a new Push Configuration', (done) => {
         var pushConfig = pushConfigs[0];
         supertest(app)
