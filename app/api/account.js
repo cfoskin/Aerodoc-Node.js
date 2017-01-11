@@ -1,5 +1,4 @@
 'use strict';
-
 const SalesAgent = require('../models/SalesAgent');
 
 exports.login = (req, res) => {
