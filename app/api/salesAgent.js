@@ -85,6 +85,7 @@ exports.searchAgents = (req, res) => {
         })
 };
 
-exports.searchAgentsInRange = () => {
+exports.searchAgentsInRange = (req, res) => {
+     return res.status(200).json('Not yet implemented!');
 };
 

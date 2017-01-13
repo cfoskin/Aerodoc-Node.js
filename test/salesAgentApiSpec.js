@@ -7,7 +7,10 @@ const should = require('chai').should;
 const expect = require('chai').expect;
 
 let salesAgents = fixtures.salesAgents;
-const salesAgentsUrl = '/rest/salesAgents/';
+//different endpoint for one sales agent
+const OnesalesAgentUrl = '/rest/salesagents/';
+const salesAgentsUrl = '/rest/saleagents/';
+
 var salesAgentId;
 
 describe('Sales Agent API Integration Tests', () => {
@@ -17,10 +20,10 @@ describe('Sales Agent API Integration Tests', () => {
             .post(salesAgentsUrl)
             .send(salesAgent)
             .end((err, res) => {
-                expect(res.body).to.have.property("name", "agent1");
+                expect(res.body).to.have.property("loginName", "agent1");
                 expect(res.body).to.have.property("password", "123");
                 expect(res.body).to.have.property("location", "Waterford");
-                expect(res.body).to.have.property("status", "with_client");
+                expect(res.body).to.have.property("status", "WITH_CLIENT");
                 expect(res.statusCode).to.be.equal(201);
                 salesAgentId = res.body._id;
                 done();
@@ -39,7 +42,7 @@ describe('Sales Agent API Integration Tests', () => {
 
     it('Should get one Sales Agent', (done) => {
         supertest(app)
-            .get(salesAgentsUrl + salesAgentId)
+            .get(OnesalesAgentUrl + salesAgentId)
             .end((err, res) => {
                 expect(res.statusCode).to.be.equal(200);
                 done();

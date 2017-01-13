@@ -4,18 +4,19 @@ const mongoose = require('mongoose');
 var SchemaTypes = mongoose.Schema.Types;
 
 const salesAgentSchema = mongoose.Schema({
-    name: {
+    loginName: {
         type: String,
-        required: true
-    },
-    password: {
-        type: String,
+        unique: true,
         required: true
     },
     status: {
         type: String,
-        currentStatus: ['standby', 'pto', 'with_client'],
-        required: false
+        enum: ['STANDBY', 'PTO', 'WITH_CLIENT'],
+        required: true,
+    },
+    password: {
+        type: String,
+        required: true
     },
     location: {
         type: String,

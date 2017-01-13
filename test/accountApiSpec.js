@@ -17,10 +17,10 @@ describe('Account Agent API Integration Tests', () => {
             .post(logInUrl)
             .send(salesAgent)
             .end((err, res) => {
-                expect(res.body).to.have.property("name", "jake");
+                expect(res.body).to.have.property("loginName", "jake");
                 expect(res.body).to.have.property("password", "123");
-                expect(res.body).to.have.property("location", "Waterford");
-                expect(res.body).to.have.property("status", "with_client");
+                expect(res.body).to.have.property("location", "Boston");
+                expect(res.body).to.have.property("status", "STANDBY");
                 expect(res.statusCode).to.be.equal(200);
                 done();
             });

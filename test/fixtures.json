@@ -19,23 +19,23 @@
     "salesAgents": [{
             "loginName": "jake",
             "password": "123",
-            "location": "Waterford",
-            "status": "with_client"
+            "location": "Boston",
+            "status": "STANDBY"
         }, {
             "loginName": "jake",
             "password": "wrongpassword",
-            "location": "Waterford",
-            "status": "standby"
+            "location": "Boston",
+            "status": "STANDBY"
         }, {
             "loginName": "invalidAgent",
             "password": "123",
             "location": "Waterford",
-            "status": "standby"
+            "status": "STANDBY"
         }, {
-            "name": "agent1",
+            "loginName": "agent1",
             "password": "123",
             "location": "Waterford",
-            "status": "with_client"
+            "status": "WITH_CLIENT"
         }
 
     ],

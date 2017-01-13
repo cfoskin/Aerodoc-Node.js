@@ -3,7 +3,7 @@ const SalesAgent = require('../models/SalesAgent');
 
 exports.login = (req, res) => {
     const salesAgent = req.body;
-    SalesAgent.findOne({ name: salesAgent.loginName })
+    SalesAgent.findOne({ loginName: salesAgent.loginName })
         .then(foundSalesAgent => {
             if (foundSalesAgent) {
                 if (foundSalesAgent.password === salesAgent.password) {
