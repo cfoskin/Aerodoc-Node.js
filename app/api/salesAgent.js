@@ -56,7 +56,33 @@ exports.delete = (req, res) => {
         });
 };
 
-exports.searchAgents = () => {
+var createFilterObject = (path, filter) => {
+    let filterObject = {};
+    let comparator = {};
+    let operator = '$eq';
+    comparator[operator] = filter;
+    filterObject[path] = comparator;
+    return filterObject;
+};
+
+exports.searchAgents = (req, res) => {
+    let filterObject = {};
+    let path = '';
+    if (req.query.status != '') {
+        path = Object.keys(req.query)[0];
+        filterObject = createFilterObject(path, req.query.status);
+    } else if (req.query.location != '') {
+        path = Object.keys(req.query)[1];
+        filterObject = createFilterObject(path, req.query.location);
+    }
+
+    SalesAgent.find(filterObject || {})
+        .exec().then(salesAgents => {
+           return res.status(200).json(salesAgents);
+        })
+        .catch(err => {
+            return res.status(404).end('No agents in that location!');
+        })
 };
 
 exports.searchAgentsInRange = () => {

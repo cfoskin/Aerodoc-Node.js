@@ -20,9 +20,14 @@ app.use(bodyParser.urlencoded({
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
   next();
 });
 
+// fulfils pre-flight/promise request
+app.options('*', function(req, res) {
+    res.sendStatus(200);
+});
 app.use(morgan('dev'));
 
 mongoose.connect(config.database, (err, database) => {

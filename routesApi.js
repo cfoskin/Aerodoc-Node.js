@@ -26,7 +26,7 @@ module.exports = (function() {
     api.get('/salesagents', SalesAgentApi.getAll);
     api.put('/salesagents/:id', SalesAgentApi.update);
     //new routes 
-    api.get('/salesagents/searchagents', SalesAgentApi.searchAgents);
+    api.get('/saleagents/searchAgents', SalesAgentApi.searchAgents);
     api.get('/salesagents/searchagentsinrange', SalesAgentApi.searchAgentsInRange);
 
 
