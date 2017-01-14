@@ -1,6 +1,7 @@
 'use strict';
 
 const Lead = require('../models/Lead');
+const LeadSender = require('../controllers/leadSender');
 
 exports.create = (req, res) => {
     const lead = new Lead(req.body);
@@ -26,6 +27,7 @@ exports.getOne = (req, res) => {
 };
 
 exports.getAll = (req, res) => {
+    console.log('hitting the endpoint');
     Lead.find({}).exec()
         .then(leads => {
             return res.status(200).json(leads);
@@ -67,8 +69,9 @@ exports.delete = (req, res) => {
         });
 };
 
-exports.sendLeads = () => {
-   //send lead to a list of agents
+exports.sendLeads = (req, res) => {
+    let aliases = req.body;
+    LeadSender.sendLeads(aliases);
 };
 
 exports.sendBroadcast = () => {

@@ -10,6 +10,8 @@ module.exports = (function() {
     const api = express.Router();
     //API routes
     api.post('/login', AccountApi.login);
+    api.post('/logout', AccountApi.logout);
+
     //Leads
     api.post('/leads', LeadApi.create);
     api.delete('/leads/:id', LeadApi.delete);

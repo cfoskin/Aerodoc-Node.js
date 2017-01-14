@@ -1,6 +1,6 @@
 'use strict';
 const SalesAgent = require('../models/SalesAgent');
-
+//authentication to be implemented
 exports.login = (req, res) => {
     const salesAgent = req.body;
     SalesAgent.findOne({ loginName: salesAgent.loginName })
@@ -17,4 +17,8 @@ exports.login = (req, res) => {
         }).catch(err => {
             return res.status(404).end('user not found');
         })
+};
+
+exports.logout = (req, res) => {
+    return res.status(200).json('logged out');
 };

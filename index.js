@@ -28,6 +28,7 @@ app.use(function(req, res, next) {
 app.options('*', function(req, res) {
     res.sendStatus(200);
 });
+
 app.use(morgan('dev'));
 
 mongoose.connect(config.database, (err, database) => {
@@ -49,9 +50,7 @@ app.set('view engine', '.hbs');
 
 var router = require('./routes');
 var api = require('./routesApi');
-app.use('/rest', api);
+app.use('/aerodoc/rest', api);
 app.use('/', router);
 
 module.exports = app;
-
-//cff195e1f2313530a0c19a9cc62da072b4b41529
