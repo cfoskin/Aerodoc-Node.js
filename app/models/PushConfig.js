@@ -7,7 +7,6 @@ const pushConfigSchema = mongoose.Schema({
   	type: String,
   	required: true
   },
-
   masterSecret: {
   	type: String,
   	required: true

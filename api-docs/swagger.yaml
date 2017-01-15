@@ -18,10 +18,10 @@ paths:
         Return the list of leads for the app.
       operationId: listLeads
       tags:
-        - Collections
+        - Leads
       responses:
         '200':
-          description: Collections listed successfully
+          description: Leads listed successfully
           schema:
             $ref: '#/definitions/CollectionsListResponse'
         '404':
@@ -35,20 +35,20 @@ paths:
     post:
       summary: Create a lead
       description: |
-        The collection endpoint creates a new lead.
+        The leads endpoint creates a new lead.
       operationId: createLead
       parameters:
         - in: body
-          name: name
+          name: leadInfo
           description: The name of the lead
           required: true
           schema:
             $ref: '#/definitions/CreateLeadParams'
       tags:
-        - Collections
+        - Leads
       responses:
         '201':
-          description: Successful lead created
+          description: Lead successfully created
           schema:
             $ref: '#/definitions/CreationSuccessResponse'
         '400':
@@ -66,13 +66,9 @@ paths:
         Return the a single lead
       operationId: getLead
       parameters:
-        - in: path
-          name: id
-          description: The id of the lead
-          type: string
-          required: true
+        - $ref: "#/parameters/id"
       tags:
-        - Collections
+        - Leads
       responses:
         '200':
           description: Lead returned successfully
@@ -89,14 +85,10 @@ paths:
     put:
       summary: Update a lead
       description: |
-        The collection endpoint updates an existing lead.
+        The leads endpoint updates an existing lead.
       operationId: updateLead
       parameters:
-        - in: path
-          name: id
-          description: The id of the lead
-          type: string
-          required: true
+        - $ref: "#/parameters/id"
         - in: body
           name: leadInfo
           description: The lead parameters
@@ -104,7 +96,7 @@ paths:
           schema:
             $ref: '#/definitions/CreateLeadParams'
       tags:
-        - Collections
+        - Leads
       responses:
         '200':
           description: Successfuly updated lead
@@ -121,16 +113,12 @@ paths:
     delete:
       summary: Delete a lead
       description: |
-        The collection endpoint deletes an existing lead.
+        The leads endpoint deletes an existing lead.
       operationId: deleteLead
       parameters:
-        - in: path
-          name: id
-          description: The id of the lead
-          type: string
-          required: true
+        - $ref: "#/parameters/id"
       tags:
-        - Collections
+        - Leads
       responses:
         '200':
           description: Successfuly deleted lead
@@ -144,9 +132,252 @@ paths:
           description: Application error
           schema:
             $ref: '#/definitions/ErrorResponse'
+  /saleagents:
+    get:
+      summary: List all sales agents.
+      description: |
+        Return the list of sales agents for the app.
+      operationId: listSalesAgents
+      tags:
+        - Sales Agents
+      responses:
+        '200':
+          description: Sales Agents listed successfully
+          schema:
+            $ref: '#/definitions/CollectionsListResponse'
+        '404':
+          description: No sales agents found
+          schema:
+            $ref: '#/definitions/NotFoundResponse'
+        '500':
+          description: Application error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+    post:
+      summary: Create a sales agent
+      description: |
+        The saleagents endpoint creates a new sales agent.
+      operationId: createAgent
+      parameters:
+        - in: body
+          name: salesAgentInfo
+          description: The name of the agent
+          required: true
+          schema:
+            $ref: '#/definitions/CreateSalesAgentParams'
+      tags:
+        - Sales Agents
+      responses:
+        '201':
+          description: Sales agent successfully created
+          schema:
+            $ref: '#/definitions/CreationSuccessResponse'
+        '400':
+          description: Missing param
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+        '500':
+          description: Application error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  /salesagents/{id}:
+    get:
+      summary: Get one sales agent.
+      description: |
+        Return the a single sales agent
+      operationId: getSalesAgent
+      parameters:
+        - $ref: "#/parameters/id"
+      tags:
+        - Sales Agents
+      responses:
+        '200':
+          description: Sales agent returned successfully
+          schema:
+            $ref: '#/definitions/GetSuccessResponse'
+        '404':
+          description: No sales agent found
+          schema:
+            $ref: '#/definitions/NotFoundResponse'
+        '500':
+          description: Application error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  /saleagents/{id}:
+    put:
+      summary: Update a sales agent
+      description: |
+        The saleagents endpoint updates an existing sales agent.
+      operationId: updateLead
+      parameters:
+        - $ref: "#/parameters/id"
+        - in: body
+          name: salesAgentInfo
+          description: The sales agents parameters
+          required: true
+          schema:
+            $ref: '#/definitions/CreateSalesAgentParams'
+      tags:
+        - Sales Agents
+      responses:
+        '200':
+          description: Successfuly updated sales agent
+          schema:
+            $ref: '#/definitions/UpdateSuccessResponse'
+        '400':
+          description: Bad param
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+        '500':
+          description: Application error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+    delete:
+      summary: Delete a sales agent
+      description: |
+        The saleagents endpoint deletes an existing lead.
+      operationId: deleteLead
+      parameters:
+        - $ref: "#/parameters/id"
+      tags:
+        - Sales Agents
+      responses:
+        '200':
+          description: Successfuly deleted sales agent
+          schema:
+            $ref: '#/definitions/DeleteSuccessResponse'
+        '404':
+          description: Id not found 
+          schema:
+            $ref: '#/definitions/NotFoundResponse'
+        '500':
+          description: Application error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  /pushConfig:
+    get:
+      summary: List all push configurations.
+      description: |
+        Return the list of push configurations for the app.
+      operationId: listPushConfigs
+      tags:
+        - Push Configurations
+      responses:
+        '200':
+          description: Push configurations listed successfully
+          schema:
+            $ref: '#/definitions/CollectionsListResponse'
+        '404':
+          description: No push configs found
+          schema:
+            $ref: '#/definitions/NotFoundResponse'
+        '500':
+          description: Application error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+    post:
+      summary: Create a push configuration 
+      description: |
+        The pushConfig endpoint creates a new push configuration
+      operationId: createPushConfig
+      parameters:
+        - in: body
+          name: pushConfigInfo
+          description: The pushApplicationId of the push configuration
+          required: true
+          schema:
+            $ref: '#/definitions/CreatePushConfigParams'
+      tags:
+        - Push Configurations
+      responses:
+        '201':
+          description: Sales agent successfully created
+          schema:
+            $ref: '#/definitions/CreationSuccessResponse'
+        '400':
+          description: Missing param
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+        '500':
+          description: Application error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  /pushConfig/{id}:
+    get:
+      summary: Get one push configuration
+      description: |
+        Return the a single push configuration
+      operationId: getPushConfiguration
+      parameters:
+        - $ref: "#/parameters/id"
+      tags:
+        - Push Configurations
+      responses:
+        '200':
+          description: Push configuration returned successfully
+          schema:
+            $ref: '#/definitions/GetSuccessResponse'
+        '404':
+          description: No push configuration found
+          schema:
+            $ref: '#/definitions/NotFoundResponse'
+        '500':
+          description: Application error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+    put:
+      summary: Update a push configuration
+      description: |
+        The pushConfig endpoint updates an existing push configuration
+      operationId: updatePushConfig
+      parameters:
+        - $ref: "#/parameters/id"
+        - in: body
+          name: pushConfigInfo
+          description: The push configurations parameters
+          required: true
+          schema:
+            $ref: '#/definitions/CreatePushConfigParams'
+      tags:
+        - Push Configurations
+      responses:
+        '200':
+          description: Successfuly updated push configuration
+          schema:
+            $ref: '#/definitions/UpdateSuccessResponse'
+        '400':
+          description: Bad param
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+        '500':
+          description: Application error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+    delete:
+      summary: Delete a push configuration
+      description: |
+        The pushConfig endpoint deletes an existing push configuration.
+      operationId: deletePushConfig
+      parameters:
+        - $ref: "#/parameters/id"
+      tags:
+        - Push Configurations
+      responses:
+        '200':
+          description: Successfuly deleted push configuration 
+          schema:
+            $ref: '#/definitions/DeleteSuccessResponse'
+        '404':
+          description: Id not found 
+          schema:
+            $ref: '#/definitions/NotFoundResponse'
+        '500':
+          description: Application error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
 parameters:
   id:
-    id: id
+    name: id
     in: path
     description: the id of the object
     type: string
@@ -205,6 +436,42 @@ definitions:
       - name
       - location
       - phoneNumber
+  CreateSalesAgentParams:
+    type: object
+    properties:
+      loginName:
+        type: string
+      status:
+        type: string
+      password:
+        type: string
+      location:
+        type: string
+      latitude:
+        type: double
+      longitude:
+        type: double
+    required:
+      - loginName
+      - status
+      - password
+      - location
+  CreatePushConfigParams:
+    type: object
+    properties:
+      pushApplicationId:
+        type: string
+      masterSecret:
+        type: string
+      serverURL:
+        type: string
+      active:
+        type: boolean
+    required:
+      - pushApplicationId
+      - masterSecret
+      - serverURL
+      - active
 
 
 
