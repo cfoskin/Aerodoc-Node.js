@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
+const path = require('path');
 require('mongoose-double')(mongoose);
 mongoose.Promise = global.Promise;
 
@@ -22,6 +23,12 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
   next();
+});
+
+// Swagger API docs.
+app.use('/docs', express.static(path.join(__dirname, './api-docs')));
+app.get('/docs', (req, res) => {
+  res.sendFile(path.join(__dirname, './api-docs/index.html'));
 });
 
 // fulfils pre-flight/promise request

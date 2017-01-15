@@ -1,0 +1,210 @@
+swagger: '2.0'
+info:
+  title: Aerodoc Node API
+  description: Backend service for the Aerodoc application
+  version: 1.0.0
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+basePath: /aerodoc/rest
+paths:
+  /leads:
+    get:
+      summary: List all leads.
+      description: |
+        Return the list of leads for the app.
+      operationId: listLeads
+      tags:
+        - Collections
+      responses:
+        '200':
+          description: Collections listed successfully
+          schema:
+            $ref: '#/definitions/CollectionsListResponse'
+        '404':
+          description: No leads found
+          schema:
+            $ref: '#/definitions/NotFoundResponse'
+        '500':
+          description: Application error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+    post:
+      summary: Create a lead
+      description: |
+        The collection endpoint creates a new lead.
+      operationId: createLead
+      parameters:
+        - in: body
+          name: name
+          description: The name of the lead
+          required: true
+          schema:
+            $ref: '#/definitions/CreateLeadParams'
+      tags:
+        - Collections
+      responses:
+        '201':
+          description: Successful lead created
+          schema:
+            $ref: '#/definitions/CreationSuccessResponse'
+        '400':
+          description: Missing param
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+        '500':
+          description: Application error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  /leads/{id}:
+    get:
+      summary: Get one lead.
+      description: |
+        Return the a single lead
+      operationId: getLead
+      parameters:
+        - in: path
+          name: id
+          description: The id of the lead
+          type: string
+          required: true
+      tags:
+        - Collections
+      responses:
+        '200':
+          description: Lead returned successfully
+          schema:
+            $ref: '#/definitions/GetSuccessResponse'
+        '404':
+          description: No leads found
+          schema:
+            $ref: '#/definitions/NotFoundResponse'
+        '500':
+          description: Application error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+    put:
+      summary: Update a lead
+      description: |
+        The collection endpoint updates an existing lead.
+      operationId: updateLead
+      parameters:
+        - in: path
+          name: id
+          description: The id of the lead
+          type: string
+          required: true
+        - in: body
+          name: leadInfo
+          description: The lead parameters
+          required: true
+          schema:
+            $ref: '#/definitions/CreateLeadParams'
+      tags:
+        - Collections
+      responses:
+        '200':
+          description: Successfuly updated lead
+          schema:
+            $ref: '#/definitions/UpdateSuccessResponse'
+        '400':
+          description: Bad param
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+        '500':
+          description: Application error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+    delete:
+      summary: Delete a lead
+      description: |
+        The collection endpoint deletes an existing lead.
+      operationId: deleteLead
+      parameters:
+        - in: path
+          name: id
+          description: The id of the lead
+          type: string
+          required: true
+      tags:
+        - Collections
+      responses:
+        '200':
+          description: Successfuly deleted lead
+          schema:
+            $ref: '#/definitions/DeleteSuccessResponse'
+        '404':
+          description: Id not found 
+          schema:
+            $ref: '#/definitions/NotFoundResponse'
+        '500':
+          description: Application error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+parameters:
+  id:
+    id: id
+    in: path
+    description: the id of the object
+    type: string
+    required: true
+definitions:
+  GeneralMessage:
+    type: object
+    properties:
+      message:
+        type: string
+  CreationSuccessResponse:
+    $ref: '#/definitions/GeneralMessage'
+  UpdateSuccessResponse:
+    $ref: '#/definitions/GeneralMessage'
+  DeleteSuccessResponse:
+    $ref: '#/definitions/GeneralMessage'
+  BadRequestResponse:
+    $ref: '#/definitions/GeneralMessage'
+  ErrorResponse:
+    $ref: '#/definitions/GeneralMessage'
+  NotFoundResponse:
+    $ref: '#/definitions/GeneralMessage'
+  GetSuccessResponse:
+    $ref: '#/definitions/GeneralMessage'
+  CollectionInfo:
+    type: object
+    properties:
+      ns:
+        type: string
+        description: the namespace of the collection
+      name:
+        type: string
+        description: the name of the collection
+      count:
+        type: integer
+        description: the number of documents in the collection
+      size:
+        type: integer
+        description: the size of the collection in bytes
+  CollectionsListResponse:
+    type: array
+    items:
+      $ref: '#/definitions/CollectionInfo'
+  CreateLeadParams:
+    type: object
+    properties:
+      name:
+        type: string
+      location:
+        type: string
+      phoneNumber:
+        type: string
+      salesAgent:
+        type: string
+    required:
+      - name
+      - location
+      - phoneNumber
+
+
+
