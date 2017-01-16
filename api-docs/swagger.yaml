@@ -23,7 +23,7 @@ paths:
         '200':
           description: Leads listed successfully
           schema:
-            $ref: '#/definitions/CollectionsListResponse'
+            $ref: '#/definitions/LeadsListResponse'
         '404':
           description: No leads found
           schema:
@@ -43,7 +43,7 @@ paths:
           description: The name of the lead
           required: true
           schema:
-            $ref: '#/definitions/CreateLeadParams'
+            $ref: '#/definitions/Lead'
       tags:
         - Leads
       responses:
@@ -144,7 +144,7 @@ paths:
         '200':
           description: Sales Agents listed successfully
           schema:
-            $ref: '#/definitions/CollectionsListResponse'
+            $ref: '#/definitions/SalesAgentsListResponse'
         '404':
           description: No sales agents found
           schema:
@@ -164,7 +164,7 @@ paths:
           description: The name of the agent
           required: true
           schema:
-            $ref: '#/definitions/CreateSalesAgentParams'
+            $ref: '#/definitions/SalesAgent'
       tags:
         - Sales Agents
       responses:
@@ -266,7 +266,7 @@ paths:
         '200':
           description: Push configurations listed successfully
           schema:
-            $ref: '#/definitions/CollectionsListResponse'
+            $ref: '#/definitions/PushConfigsListResponse'
         '404':
           description: No push configs found
           schema:
@@ -286,7 +286,7 @@ paths:
           description: The pushApplicationId of the push configuration
           required: true
           schema:
-            $ref: '#/definitions/CreatePushConfigParams'
+            $ref: '#/definitions/PushConfig'
       tags:
         - Push Configurations
       responses:
@@ -417,11 +417,19 @@ definitions:
       size:
         type: integer
         description: the size of the collection in bytes
-  CollectionsListResponse:
+  LeadsListResponse:
     type: array
     items:
-      $ref: '#/definitions/CollectionInfo'
-  CreateLeadParams:
+      $ref: '#/definitions/Lead'
+  SalesAgentsListResponse:
+    type: array
+    items:
+      $ref: '#/definitions/SalesAgent'
+  PushConfigsListResponse:
+    type: array
+    items:
+      $ref: '#/definitions/PushConfig'
+  Lead:
     type: object
     properties:
       name:
@@ -436,7 +444,7 @@ definitions:
       - name
       - location
       - phoneNumber
-  CreateSalesAgentParams:
+  SalesAgent:
     type: object
     properties:
       loginName:
@@ -456,7 +464,7 @@ definitions:
       - status
       - password
       - location
-  CreatePushConfigParams:
+  PushConfig:
     type: object
     properties:
       pushApplicationId:
