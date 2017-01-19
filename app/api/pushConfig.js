@@ -6,11 +6,38 @@ exports.create = (req, res) => {
     const pushConfig = new PushConfig(req.body);
     pushConfig.save()
         .then(newPushConfig => {
-             return res.status(201).json(pushConfig);       })
+             if(newPushConfig.active = true){
+                    updateActiveState(newPushConfig);
+                };
+             return res.status(201).json(pushConfig);      
+              })
         .catch(err => {
             return res.status(500).end('Error creating push config');
           })
 };
+
+var updateActiveState = (newPushConfig) => {
+    PushConfig.find({ active: true })
+        .then(pushConfigs => {
+            pushConfigs.forEach((pushConfig) => {
+                if (!pushConfig._id.equals(newPushConfig._id)) {
+                    console.log('got in');
+                    pushConfig.active = false;
+                    return pushConfig.save()
+                        .then(updatedPushConfig => {
+                            return res.status(200).json(updatedPushConfig);
+                        })
+                        .catch(err => {
+                            return res.status(500).end('Error updating active state of push config');
+                        })
+                }
+            });
+        })
+        .catch(err => {
+            return res.status(404).end('no push configs found');
+        })
+}
+
 
 exports.getOne = (req, res) => {
     PushConfig.findOne({ _id: req.params.id })
