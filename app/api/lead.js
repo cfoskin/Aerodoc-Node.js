@@ -27,7 +27,6 @@ exports.getOne = (req, res) => {
 };
 
 exports.getAll = (req, res) => {
-    console.log('hitting the endpoint');
     Lead.find({}).exec()
         .then(leads => {
             return res.status(200).json(leads);

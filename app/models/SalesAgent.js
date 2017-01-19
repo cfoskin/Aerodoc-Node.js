@@ -4,6 +4,11 @@ const mongoose = require('mongoose');
 var SchemaTypes = mongoose.Schema.Types;
 
 const salesAgentSchema = mongoose.Schema({
+    id: {
+        type: String,
+        unique: true,
+        required: true
+    },
     loginName: {
         type: String,
         unique: true,
@@ -24,11 +29,11 @@ const salesAgentSchema = mongoose.Schema({
     },
     latitude: {
         type: SchemaTypes.Double,
-        required: false
+        required: true
     },
     longitude: {
         type: SchemaTypes.Double,
-        required: false
+        required: true
     }
 });
 
