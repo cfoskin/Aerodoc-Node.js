@@ -3,9 +3,9 @@
 const agSender = require('unifiedpush-node-sender');
 
 const settings = {
-    url: "https://demos-pushee.rhcloud.com/ag-push/",
-    applicationId: "779b08f9-cbb8-454c-8e8c-e55a7491bd14",
-    masterSecret: "2fd5ec35-7a59-480c-b325-a85f6082578a"
+    url: "",
+    applicationId: "",
+    masterSecret: ""
 }
 
 const message = {
