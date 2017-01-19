@@ -35,7 +35,6 @@ exports.getAll = (req, res) => {
 };
 
 exports.update = (req, res) => {
-    console.log('hitting put');
     SalesAgent.findOneAndUpdate({ _id: req.params.id }, { $set: req.body }, { 'new': true })
         .then(salesAgent => {
             if (salesAgent != null) {

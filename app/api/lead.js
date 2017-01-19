@@ -7,7 +7,7 @@ exports.create = (req, res) => {
     const lead = new Lead(req.body);
     lead.save()
         .then(newLead => {
-            return res.status(201).json(lead);
+            return res.status(201).json(newLead);
         })
         .catch(err => {
             return res.status(500).end('Error creating Lead');
@@ -15,7 +15,7 @@ exports.create = (req, res) => {
 };
 
 exports.getOne = (req, res) => {
-    Lead.findOne({ _id: req.params.id })
+    Lead.findOne({ id: req.params.id })
         .then(lead => {
             if (lead != null) {
                 return res.status(200).json(lead)
@@ -47,7 +47,7 @@ exports.deleteAll = (req, res) => {
 };
 
 exports.update = (req, res) => {
-    Lead.findOneAndUpdate({ _id: req.params.id }, { $set: req.body }, { 'new': true })
+    Lead.findOneAndUpdate({ id: req.params.id }, { $set: req.body }, { 'new': true })
         .then(lead => {
             if (lead != null) {
                 return res.status(200).json(lead);
@@ -59,7 +59,7 @@ exports.update = (req, res) => {
 };
 
 exports.delete = (req, res) => {
-    Lead.remove({ _id: req.params.id })
+    Lead.remove({ id: req.params.id })
         .then(lead => {
             return res.status(204).json(lead);
         })
@@ -74,11 +74,9 @@ exports.sendLeads = (req, res) => {
 };
 
 exports.sendBroadcast = () => {
-   //send broadcast to all agents
+    //send broadcast to all agents
 };
 
 var getActivePushConfig = () => {
-   //get the current active push config
+    //get the current active push config
 };
-
-
