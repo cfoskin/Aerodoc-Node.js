@@ -19,16 +19,16 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
-  next();
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
+    next();
 });
 
 // Swagger API docs.
 app.use('/docs', express.static(path.join(__dirname, './api-docs')));
 app.get('/docs', (req, res) => {
-  res.sendFile(path.join(__dirname, './api-docs/index.html'));
+    res.sendFile(path.join(__dirname, './api-docs/index.html'));
 });
 
 // fulfils pre-flight/promise request

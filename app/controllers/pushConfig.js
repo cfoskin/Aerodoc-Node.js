@@ -43,7 +43,5 @@ exports.update = (req, res) => {
         })
 };
 
-exports.findActiveConfig = () => {
-    //finds the only active config on the system
-};
+
 

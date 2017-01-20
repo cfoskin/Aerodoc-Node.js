@@ -1,7 +1,7 @@
 'use strict';
 
 const Lead = require('../models/Lead');
-const LeadSender = require('../controllers/leadSender');
+const PushSender = require('../utility/pushSender');
 
 exports.create = (req, res) => {
     const lead = new Lead(req.body);
@@ -70,13 +70,9 @@ exports.delete = (req, res) => {
 
 exports.sendLeads = (req, res) => {
     let aliases = req.body;
-    LeadSender.sendLeads(aliases);
+    PushSender.buildPushMessage(aliases);
 };
 
 exports.sendBroadcast = () => {
     //send broadcast to all agents
-};
-
-var getActivePushConfig = () => {
-    //get the current active push config
 };

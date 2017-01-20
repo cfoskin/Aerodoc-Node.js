@@ -6,14 +6,14 @@ exports.create = (req, res) => {
     const pushConfig = new PushConfig(req.body);
     pushConfig.save()
         .then(newPushConfig => {
-             if(newPushConfig.active = true){
-                    updateActiveState(newPushConfig);
-                };
-             return res.status(201).json(pushConfig);      
-              })
+            if (newPushConfig.active === true) {
+                updateActiveState(newPushConfig);
+            };
+            return res.status(201).json(newPushConfig);
+        })
         .catch(err => {
             return res.status(500).end('Error creating push config');
-          })
+        })
 };
 
 var updateActiveState = (newPushConfig) => {
@@ -21,7 +21,6 @@ var updateActiveState = (newPushConfig) => {
         .then(pushConfigs => {
             pushConfigs.forEach((pushConfig) => {
                 if (!pushConfig._id.equals(newPushConfig._id)) {
-                    console.log('got in');
                     pushConfig.active = false;
                     return pushConfig.save()
                         .then(updatedPushConfig => {
@@ -38,7 +37,6 @@ var updateActiveState = (newPushConfig) => {
         })
 }
 
-
 exports.getOne = (req, res) => {
     PushConfig.findOne({ _id: req.params.id })
         .then(pushConfig => {
@@ -46,7 +44,7 @@ exports.getOne = (req, res) => {
                 return res.status(200).json(pushConfig)
             };
         })
-        .catch(err => { 
+        .catch(err => {
             return res.status(404).end('id not found');
         })
 };
@@ -54,8 +52,9 @@ exports.getOne = (req, res) => {
 exports.getAll = (req, res) => {
     PushConfig.find({}).exec()
         .then(pushConfigs => {
-            return res.status(200).json(pushConfigs); })
-        .catch(err => { 
+            return res.status(200).json(pushConfigs);
+        })
+        .catch(err => {
             return res.status(404).end('Error retrieving push configs');
         })
 };
@@ -67,9 +66,9 @@ exports.update = (req, res) => {
                 return res.status(200).json(pushConfig);
             }
         })
-        .catch(err => { 
+        .catch(err => {
             return res.status(404).end('id not found');
-             })
+        })
 };
 
 exports.delete = (req, res) => {

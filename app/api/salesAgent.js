@@ -5,11 +5,12 @@ const SalesAgent = require('../models/SalesAgent');
 exports.create = (req, res) => {
     const salesAgent = new SalesAgent(req.body);
     salesAgent.save()
-        .then(newSalesAgent => { 
-           return res.status(201).json(newSalesAgent); })
-        .catch(err => {  
-          return res.status(500).end('Error creating sales agent');
-             })
+        .then(newSalesAgent => {
+            return res.status(201).json(newSalesAgent);
+        })
+        .catch(err => {
+            return res.status(500).end('Error creating sales agent');
+        })
 };
 
 exports.getOne = (req, res) => {
@@ -19,18 +20,18 @@ exports.getOne = (req, res) => {
                 return res.status(200).json(salesAgent)
             };
         })
-        .catch(err => {  
+        .catch(err => {
             return res.status(404).end('id not found');
         })
 };
 
 exports.getAll = (req, res) => {
     SalesAgent.find({}).exec()
-        .then(salesAgents => { 
+        .then(salesAgents => {
             return res.status(200).json(salesAgents);
-             })
-        .catch(err => {  
-            return res.status(404).end('error retrieving the sales agents from database!'); 
+        })
+        .catch(err => {
+            return res.status(404).end('error retrieving the sales agents from database!');
         })
 };
 
@@ -41,9 +42,9 @@ exports.update = (req, res) => {
                 return res.status(200).json(salesAgent);
             }
         })
-        .catch(err => { 
+        .catch(err => {
             return res.status(404).end('id not found');
-             })
+        })
 };
 
 exports.delete = (req, res) => {
@@ -78,7 +79,7 @@ exports.searchAgents = (req, res) => {
 
     SalesAgent.find(filterObject || {})
         .exec().then(salesAgents => {
-           return res.status(200).json(salesAgents);
+            return res.status(200).json(salesAgents);
         })
         .catch(err => {
             return res.status(404).end('No agents in that location!');
@@ -86,6 +87,6 @@ exports.searchAgents = (req, res) => {
 };
 
 exports.searchAgentsInRange = (req, res) => {
-     return res.status(200).json('Not yet implemented!');
+    //descoped from sprint due to android feature missing
+    return res.status(200).json([]);
 };
-
