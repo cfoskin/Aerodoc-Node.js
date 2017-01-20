@@ -5,11 +5,10 @@ const app = require('../index');
 const fixtures = require('./fixtures.json');
 const should = require('chai').should;
 const expect = require('chai').expect;
-
 let salesAgents = fixtures.salesAgents;
 //different endpoint for one sales agent
-const OnesalesAgentUrl = '/rest/salesagents/';
-const salesAgentsUrl = '/rest/saleagents/';
+const OnesalesAgentUrl = '/aerodoc/rest/salesagents/';
+const salesAgentsUrl = '/aerodoc/rest/saleagents/';
 
 var salesAgentId;
 
@@ -23,7 +22,6 @@ describe('Sales Agent API Integration Tests', () => {
                 expect(res.body).to.have.property("loginName", "agent1");
                 expect(res.body).to.have.property("password", "123");
                 expect(res.body).to.have.property("location", "Waterford");
-                expect(res.body).to.have.property("status", "WITH_CLIENT");
                 expect(res.statusCode).to.be.equal(201);
                 salesAgentId = res.body._id;
                 done();

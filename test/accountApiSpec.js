@@ -7,7 +7,7 @@ const should = require('chai').should;
 const expect = require('chai').expect;
 
 let salesAgents = fixtures.salesAgents;
-const logInUrl = '/rest/login/';
+const logInUrl = '/aerodoc/rest/login/';
 
 describe('Account Agent API Integration Tests', () => {
 
@@ -20,7 +20,6 @@ describe('Account Agent API Integration Tests', () => {
                 expect(res.body).to.have.property("loginName", "jake");
                 expect(res.body).to.have.property("password", "123");
                 expect(res.body).to.have.property("location", "Boston");
-                expect(res.body).to.have.property("status", "STANDBY");
                 expect(res.statusCode).to.be.equal(200);
                 done();
             });

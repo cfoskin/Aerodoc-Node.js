@@ -7,7 +7,7 @@ const salesAgentSchema = mongoose.Schema({
     id: {
         type: String,
         unique: true,
-        required: true
+        required: false
     },
     loginName: {
         type: String,

@@ -7,15 +7,10 @@ const should = require('chai').should;
 const expect = require('chai').expect;
 
 let leads = fixtures.leads;
-const leadsUrl = '/rest/leads/';
+const leadsUrl = '/aerodoc/rest/leads/';
 var leadId;
 
 describe('Lead API Integration Tests', () => {
-
-    afterEach(function() {
-
-    });
-
     it('Should create a new lead', (done) => {
         var lead = leads[2];
         supertest(app)
@@ -27,7 +22,7 @@ describe('Lead API Integration Tests', () => {
                 expect(res.body).to.have.property("phoneNumber", "3333");
                 expect(res.body).to.have.property("salesAgent", "agent3");
                 expect(res.statusCode).to.be.equal(201);
-                leadId = res.body._id;
+                leadId = res.body.id;
                 done();
             });
     });

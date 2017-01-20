@@ -17,37 +17,43 @@
         "salesAgent": "agent3"
     }],
     "salesAgents": [{
-            "loginName": "jake",
-            "password": "123",
-            "location": "Boston",
-            "status": "STANDBY"
-        }, {
-            "loginName": "jake",
-            "password": "wrongpassword",
-            "location": "Boston",
-            "status": "STANDBY"
-        }, {
-            "loginName": "invalidAgent",
-            "password": "123",
-            "location": "Waterford",
-            "status": "STANDBY"
-        }, {
-            "loginName": "agent1",
-            "password": "123",
-            "location": "Waterford",
-            "status": "WITH_CLIENT"
-        }
-
-    ],
+        "loginName": "jake",
+        "password": "123",
+        "location": "Boston",
+        "status": "STANDBY",
+        "latitude": "null",
+        "longitude": "null"
+    }, {
+        "loginName": "jake",
+        "password": "wrongpassword",
+        "location": "Boston",
+        "status": "STANDBY",
+        "latitude": "null",
+        "longitude": "null"
+    }, {
+        "loginName": "invalidAgent",
+        "password": "123",
+        "location": "Waterford",
+        "status": "STANDBY",
+        "latitude": "null",
+        "longitude": "null"
+    }, {
+        "loginName": "agent1",
+        "password": "123",
+        "location": "Waterford",
+        "status": "WITH_CLIENT",
+        "latitude": "null",
+        "longitude": "null"
+    }],
     "pushConfigs": [{
         "pushApplicationId": "test",
         "masterSecret": "secret",
         "serverURL": "testURL",
-        "active": true
+        "active": "true"
     }, {
         "pushApplicationId": "test2",
         "masterSecret": "secret",
         "serverURL": "testURL",
-        "active": false
+        "active": "false"
     }]
 }

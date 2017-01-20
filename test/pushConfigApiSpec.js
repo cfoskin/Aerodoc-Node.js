@@ -5,9 +5,8 @@ const app = require('../index');
 const fixtures = require('./fixtures.json');
 const should = require('chai').should;
 const expect = require('chai').expect;
-
 const pushConfigs = fixtures.pushConfigs;
-const pushConfigUrl = '/rest/pushConfig/';
+const pushConfigUrl = '/aerodoc/rest/pushConfig/';
 var pushConfigId;
 
 describe('Push Configuration API Integration Tests', () => {
