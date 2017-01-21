@@ -87,7 +87,6 @@ exports.sendLeads = (req) => {
                 error: err
             });
         })
-
 };
 
 exports.sendBroadcast = () => {

@@ -33,7 +33,6 @@ var settings = {
 
 var sendPush = (options, settings) => {
     agSender(settings).then((client) => {
-        console.log(message);
         client.sender.send(message, options).then((response) => {
                 return res.status(202).json(response);
             })
