@@ -46,6 +46,15 @@ describe('Sales Agent API Integration Tests', () => {
             });
     });
 
+    it('Should delete one Sales Agent', (done) => {
+        supertest(app)
+            .delete(salesAgentsUrl + salesAgentId)
+            .end((err, res) => {
+                expect(res.statusCode).to.be.equal(204);
+                done();
+            });
+    });
+
     it('Should return all agents in search', (done) => {
         supertest(app)
             .get(salesAgentsUrl + 'searchAgents')
@@ -68,15 +77,6 @@ describe('Sales Agent API Integration Tests', () => {
                 expect(res.body.length === 1);
                 expect(res.body.length != 0);
                 expect(res.statusCode).to.be.equal(200);
-                done();
-            });
-    });
-    
-      it('Should delete one Sales Agent', (done) => {
-        supertest(app)
-            .delete(salesAgentsUrl + salesAgentId)
-            .end((err, res) => {
-                expect(res.statusCode).to.be.equal(204);
                 done();
             });
     });
