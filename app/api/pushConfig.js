@@ -2,22 +2,6 @@
 
 const PushConfig = require('../models/PushConfig');
 
-exports.create = (req, res) => {
-    const pushConfig = new PushConfig(req.body);
-    pushConfig.save()
-        .then(newPushConfig => {
-            if (newPushConfig.active === true) {
-                updateActiveState(newPushConfig);
-            };
-            return res.status(201).json(newPushConfig);
-        })
-        .catch(err => {
-            return res.status(500).json({
-                message: 'Error creating push config',
-                error: err
-            });
-        })
-};
 
 var updateActiveState = (newPushConfig) => {
     PushConfig.find({ active: true })
@@ -39,16 +23,36 @@ var updateActiveState = (newPushConfig) => {
             });
         })
         .catch(err => {
-            return res.status(404).end('no push configs found');
+            return res.status(404).json({
+                message: 'no push configs found',
+                error: err
+            });
         })
 }
+
+exports.create = (req, res) => {
+    const pushConfig = new PushConfig(req.body);
+    pushConfig.save()
+        .then(newPushConfig => {
+            if (newPushConfig.active === true) {
+                updateActiveState(newPushConfig);
+            }
+            return res.status(201).json(newPushConfig);
+        })
+        .catch(err => {
+            return res.status(500).json({
+                message: 'Error creating push config',
+                error: err
+            });
+        })
+};
 
 exports.getOne = (req, res) => {
     PushConfig.findOne({ _id: req.params.id })
         .then(pushConfig => {
             if (pushConfig != null) {
                 return res.status(200).json(pushConfig)
-            };
+            }
         })
         .catch(err => {
             return res.status(404).json({
@@ -89,7 +93,7 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
     PushConfig.remove({ _id: req.params.id })
         .then(pushConfig => {
-            return res.status(204).json(PushConfig);
+            return res.status(204).json(pushConfig);
         })
         .catch(err => {
             return res.status(404).json({

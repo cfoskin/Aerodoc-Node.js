@@ -22,7 +22,7 @@ exports.getOne = (req, res) => {
         .then(lead => {
             if (lead != null) {
                 return res.status(200).json(lead)
-            };
+            }
         })
         .catch(err => {
             return res.status(404).json({
@@ -73,8 +73,8 @@ exports.delete = (req, res) => {
         });
 };
 
-exports.sendLeads = (req, res) => {
-    let aliases = req.body;
+exports.sendLeads = (req) => {
+    const aliases = req.body;
     PushSender.buildPushMessage(aliases);
 };
 

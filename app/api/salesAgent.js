@@ -21,7 +21,7 @@ exports.getOne = (req, res) => {
         .then(salesAgent => {
             if (salesAgent != null) {
                 return res.status(200).json(salesAgent)
-            };
+            }
         })
         .catch(err => {
             return res.status(404).json({
