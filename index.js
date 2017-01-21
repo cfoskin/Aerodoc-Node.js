@@ -38,8 +38,10 @@ app.options('*', function(req, res) {
 
 app.use(morgan('dev'));
 
-mongoose.connect(config.database, (err, database) => {
-    if (err) return console.log(err, 'Error connecting to database')
+mongoose.connect(config.database, (err) => {
+    if (err) {
+        return console.log(err, 'Error connecting to database')
+    }
     app.listen(3000, () => {
         console.log('Server started on 3000')
     })

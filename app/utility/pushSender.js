@@ -1,7 +1,7 @@
 'use strict';
 
 const PushConfig = require('../models/PushConfig');
-//const agSender = require('unifiedpush-node-sender');
+const agSender = require('unifiedpush-node-sender');
 
 const message = {
     alert: 'A new lead has been created',
@@ -31,6 +31,20 @@ var settings = {
     masterSecret: ''
 }
 
+var sendPush = (options, settings) => {
+    agSender(settings).then((client) => {
+        client.sender.send(message, options).then((response) => {
+                return res.status(202).json(response);
+            })
+            .catch(err => {
+                return res.status(500).json({
+                message: 'failed to send push',
+                error: err
+            });
+            })
+    });
+}
+
 exports.buildPushMessage = (aliases) => {
     PushConfig.findOne({ active: true })
         .then(activePushConfig => {
@@ -40,22 +54,12 @@ exports.buildPushMessage = (aliases) => {
                 settings.masterSecret = activePushConfig.masterSecret;
                 options.criteria.alias = aliases;
                 sendPush(options, settings);
-            };
+            }
         })
         .catch(err => {
-            return res.status(404).end('error finding active push config');
+            return res.status(404).end({
+                message: 'error finding active push config',
+                error: err
+            });
         })
 }
-
-var sendPush = (options, settings) => {
-    agSender(settings).then((client) => {
-        client.sender.send(message, options).then((response) => {
-                return res.status(202).json(response);
-            })
-            .catch(err => {
-                return res.status(500).end('failed to send push', err);
-            })
-    });
-}
-
-exports.sendBroadcast = () => {}
