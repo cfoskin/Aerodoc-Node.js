@@ -11,7 +11,7 @@ const message = {
         messageType: 'pushed_lead',
         name: 'lead name',
         location: 'lead location',
-        phone: 'lead phone number'
+        phoneNumber: 'lead phone number'
     }
 }
 
@@ -33,6 +33,7 @@ var settings = {
 
 var sendPush = (options, settings) => {
     agSender(settings).then((client) => {
+        console.log(message);
         client.sender.send(message, options).then((response) => {
                 return res.status(202).json(response);
             })
@@ -45,7 +46,7 @@ var sendPush = (options, settings) => {
     });
 }
 
-exports.buildPushMessage = (aliases) => {
+exports.buildPushMessage = (aliases, lead) => {
     PushConfig.findOne({ active: true })
         .then(activePushConfig => {
             if (activePushConfig != null) {
@@ -53,6 +54,12 @@ exports.buildPushMessage = (aliases) => {
                 settings.applicationId = activePushConfig.pushApplicationId;
                 settings.masterSecret = activePushConfig.masterSecret;
                 options.criteria.alias = aliases;
+
+                message.userData.id = lead.id;
+                message.userData.name = lead.name;
+                message.userData.location = lead.location;
+                message.userData.phoneNumber = lead.phoneNumber;
+
                 sendPush(options, settings);
             }
         })

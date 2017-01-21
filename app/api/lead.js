@@ -74,8 +74,20 @@ exports.delete = (req, res) => {
 };
 
 exports.sendLeads = (req) => {
-    const aliases = req.body;
-    PushSender.buildPushMessage(aliases);
+    Lead.findOne({ id: req.params.id })
+        .then(lead => {
+            if (lead != null) {
+                const aliases = req.body;
+                PushSender.buildPushMessage(aliases, lead);
+            }
+        })
+        .catch(err => {
+            return res.status(404).json({
+                message: "'id not found'",
+                error: err
+            });
+        })
+
 };
 
 exports.sendBroadcast = () => {
