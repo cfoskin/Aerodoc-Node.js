@@ -10,7 +10,10 @@ exports.create = (req, res) => {
             return res.status(201).json(newLead);
         })
         .catch(err => {
-            return res.status(500).end('Error creating Lead');
+            return res.status(500).json({
+                message: 'error creating Lead',
+                error: err
+            });
         })
 };
 
@@ -22,7 +25,10 @@ exports.getOne = (req, res) => {
             };
         })
         .catch(err => {
-            return res.status(404).end('id not found');
+            return res.status(404).json({
+                message: "'id not found'",
+                error: err
+            });
         })
 };
 
@@ -32,7 +38,10 @@ exports.getAll = (req, res) => {
             return res.status(200).json(leads);
         })
         .catch(err => {
-            return res.status(404).end('id not found');
+            return res.status(404).json({
+                message: 'id not found',
+                error: err
+            });
         })
 };
 
@@ -42,7 +51,10 @@ exports.deleteAll = (req, res) => {
             return res.status(204);
         })
         .catch(err => {
-            return res.status(404).end('Error retrieving the leads from database!');
+            return res.status(404).json({
+                message: 'Error retrieving the leads from database!',
+                error: err
+            });
         })
 };
 
@@ -54,7 +66,10 @@ exports.update = (req, res) => {
             }
         })
         .catch(err => {
-            return res.status(404).end('id not found');
+            return res.status(404).json({
+                message: 'id not found',
+                error: err
+            });
         })
 };
 
@@ -64,7 +79,10 @@ exports.delete = (req, res) => {
             return res.status(204).json(lead);
         })
         .catch(err => {
-            return res.status(404).end('id not found');
+            return res.status(404).json({
+                message: 'id not found',
+                error: err
+            });
         });
 };
 

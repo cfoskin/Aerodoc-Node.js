@@ -9,7 +9,10 @@ exports.create = (req, res) => {
             return res.status(201).json(newSalesAgent);
         })
         .catch(err => {
-            return res.status(500).end('Error creating sales agent');
+            return res.status(500).json({
+                message: 'Error creating sales agent',
+                error: err
+            });
         })
 };
 
@@ -21,7 +24,10 @@ exports.getOne = (req, res) => {
             };
         })
         .catch(err => {
-            return res.status(404).end('id not found');
+            return res.status(404).json({
+                message: 'id not found',
+                error: err
+            });
         })
 };
 
@@ -31,7 +37,10 @@ exports.getAll = (req, res) => {
             return res.status(200).json(salesAgents);
         })
         .catch(err => {
-            return res.status(404).end('error retrieving the sales agents from database!');
+            return res.status(404).json({
+                message: 'error retrieving the sales agents from database!',
+                error: err
+            });
         })
 };
 
@@ -43,7 +52,10 @@ exports.update = (req, res) => {
             }
         })
         .catch(err => {
-            return res.status(404).end('id not found');
+            return res.status(404).json({
+                message: 'id not found',
+                error: err
+            });
         })
 };
 
@@ -53,7 +65,10 @@ exports.delete = (req, res) => {
             return res.status(204).json(salesAgent);
         })
         .catch(err => {
-            return res.status(404).end('id not found');
+            return res.status(404).json({
+                message: 'id not found',
+                error: err
+            });
         });
 };
 
@@ -82,7 +97,10 @@ exports.searchAgents = (req, res) => {
             return res.status(200).json(salesAgents);
         })
         .catch(err => {
-            return res.status(404).end('No agents in that location!');
+            return res.status(404).end({
+                message: 'No agents found!',
+                error: err
+            });
         })
 };
 

@@ -12,7 +12,10 @@ exports.create = (req, res) => {
             return res.status(201).json(newPushConfig);
         })
         .catch(err => {
-            return res.status(500).end('Error creating push config');
+            return res.status(500).json({
+                message: 'Error creating push config',
+                error: err
+            });
         })
 };
 
@@ -27,7 +30,10 @@ var updateActiveState = (newPushConfig) => {
                             return res.status(200).json(updatedPushConfig);
                         })
                         .catch(err => {
-                            return res.status(500).end('Error updating active state of push config');
+                            return res.status(500).json({
+                                message: 'Error updating active state of push config',
+                                error: err
+                            });
                         })
                 }
             });
@@ -45,7 +51,10 @@ exports.getOne = (req, res) => {
             };
         })
         .catch(err => {
-            return res.status(404).end('id not found');
+            return res.status(404).json({
+                message: 'id not found',
+                error: err
+            });
         })
 };
 
@@ -55,7 +64,10 @@ exports.getAll = (req, res) => {
             return res.status(200).json(pushConfigs);
         })
         .catch(err => {
-            return res.status(404).end('Error retrieving push configs');
+            return res.status(404).json({
+                message: 'error retrieving push configs',
+                error: err
+            });
         })
 };
 
@@ -67,7 +79,10 @@ exports.update = (req, res) => {
             }
         })
         .catch(err => {
-            return res.status(404).end('id not found');
+            return res.status(404).json({
+                message: 'id not found',
+                error: err
+            });
         })
 };
 
@@ -77,6 +92,9 @@ exports.delete = (req, res) => {
             return res.status(204).json(PushConfig);
         })
         .catch(err => {
-            return res.status(404).end('id not found');
+            return res.status(404).json({
+                message: 'id not found',
+                error: err
+            });
         });
 };

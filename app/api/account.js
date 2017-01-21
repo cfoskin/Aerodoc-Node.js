@@ -15,7 +15,10 @@ exports.login = (req, res) => {
                 return res.status(404).end('user not found');
             }
         }).catch(err => {
-            return res.status(404).end('user not found');
+            return res.status(404).json({
+                message: 'user not found',
+                error: err
+            });
         })
 };
 
