@@ -32,17 +32,19 @@ var settings = {
 };
 
 var sendPush = (pushMessage, pushOptions, settings) => {
-    agSender(settings).then((client) => {
-        client.sender.send(pushMessage, pushOptions).then((res) => {
-                return res.status(202);
-            })
-            .catch(err => {
-                return res.status(500).json({
-                    message: 'failed to send push',
-                    error: err
-                });
-            })
-    });
+    agSender(settings)
+        .then((client) => {
+            return client.sender.send(pushMessage, pushOptions);
+        })
+        .then((res) => {
+            res.status(202);
+        })
+        .catch(err => {
+            return res.status(500).json({
+                message: 'failed to send push',
+                error: err
+            });
+        });
 };
 
 exports.sendLeads = (aliases, lead) => {
