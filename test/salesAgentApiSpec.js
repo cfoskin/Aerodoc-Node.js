@@ -68,16 +68,12 @@ describe('Sales Agent API Integration Tests', () => {
             });
     });
 
-    it('Should return one agent only in search', (done) => {
+    it('Should return no agents in search', (done) => {
         supertest(app)
-            .get(salesAgentsUrl + 'searchAgents?status=&location=Boston')
+            .get(salesAgentsUrl + 'searchAgents?status=&location=Africa')
             .end((err, res) => {
-                console.log(res.body);
-                // expect(res.body[0]).to.have.property("location", "Boston");
-                // expect(res.body[0]).to.not.have.property("location", "New York");
-                // expect(res.body.length === 1);
-                // expect(res.body.length != 0);
-                // expect(res.statusCode).to.be.equal(200);
+                expect(res.body.length === 0);
+                expect(res.statusCode).to.be.equal(200);
                 done();
             });
     });
