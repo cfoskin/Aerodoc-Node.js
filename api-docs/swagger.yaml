@@ -132,6 +132,35 @@ paths:
           description: Application error
           schema:
             $ref: '#/definitions/ErrorResponse'
+  /leads/sendleads/:id:
+    post:
+      summary: Send a lead to a sales agent via a push notification
+      description: |
+        The sendleads endpoint sends a new lead to one or more sales agents
+      operationId: sendNewLeadPush
+      parameters:
+        - $ref: "#/parameters/leadId"
+        - in: body
+          name: pushInfo
+          description: The push message info
+          required: true
+          schema:
+            $ref: '#/definitions/NewLeadPushMessageArray'
+      tags:
+        - Leads
+      responses:
+        '202':
+          description: Push message sent
+          schema:
+            $ref: '#/definitions/PushSuccessResponse'
+        '400':
+          description: Missing param
+          schema:
+            $ref: '#/definitions/BadRequestResponse'
+        '500':
+          description: Application error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
   /saleagents:
     get:
       summary: List all sales agents.
@@ -382,6 +411,12 @@ parameters:
     description: the id of the object
     type: string
     required: true
+  leadId:
+    name: leadId
+    in: path
+    description: the id of the lead to send  - currently not working through swagger but docs are good
+    type: number
+    required: true
 definitions:
   GeneralMessage:
     type: object
@@ -401,6 +436,8 @@ definitions:
   NotFoundResponse:
     $ref: '#/definitions/GeneralMessage'
   GetSuccessResponse:
+    $ref: '#/definitions/GeneralMessage'
+  PushSuccessResponse:
     $ref: '#/definitions/GeneralMessage'
   CollectionInfo:
     type: object
@@ -480,6 +517,45 @@ definitions:
       - masterSecret
       - serverURL
       - active
-
-
+  NewLeadPushMessage:
+    type: object
+    properties:
+      _id:
+        type: string
+      id:
+        type: string
+      loginName:
+        type: string
+      password:
+        type: string
+      location:
+        type: string
+      status:
+        type: string
+      longitude:
+        type: string
+      latitude:
+        type: string
+      _v:
+        type: integer
+      checked:
+        type: boolean
+      $$hashkey:
+        type: string
+    required:
+      - _id
+      - id
+      - loginName
+      - password
+      - location
+      - status
+      - longitude
+      - latitude
+      - _v
+      - $$hashkey
+      - checked
+  NewLeadPushMessageArray:
+    type: array
+    items:
+      $ref: 'NewLeadPushMessage'
 
