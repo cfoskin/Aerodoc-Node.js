@@ -9,7 +9,6 @@ let salesAgents = fixtures.salesAgents;
 //different endpoint for one sales agent
 const OnesalesAgentUrl = '/aerodoc/rest/salesagents/';
 const salesAgentsUrl = '/aerodoc/rest/saleagents/';
-
 var salesAgentId;
 
 describe('Sales Agent API Integration Tests', () => {
