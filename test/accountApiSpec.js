@@ -56,16 +56,4 @@ describe('Account Agent API Integration Tests', () => {
                 done();
             });
     });
-
-    it('Should not log in existing Sales Agent with a wrong password', (done) => {
-        var salesAgent = salesAgents[1];
-        supertest(app)
-            .post(logInUrl)
-            .send(salesAgent)
-            .end((err, res) => {
-                expect(res.statusCode).to.be.equal(401);
-                done();
-            });
-
-    });
 })
