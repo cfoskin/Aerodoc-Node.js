@@ -49,7 +49,7 @@
         "pushApplicationId": "test",
         "masterSecret": "secret",
         "serverURL": "testURL",
-        "active": "true"
+        "active": "false"
     }, {
         "pushApplicationId": "test2",
         "masterSecret": "secret",

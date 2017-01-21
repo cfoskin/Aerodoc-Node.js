@@ -19,7 +19,7 @@ describe('Push Configuration API Integration Tests', () => {
                 expect(res.body).to.have.property("pushApplicationId", "test");
                 expect(res.body).to.have.property("masterSecret", "secret");
                 expect(res.body).to.have.property("serverURL", "testURL");
-                expect(res.body).to.have.property("active", true);
+                expect(res.body).to.have.property("active", false);
                 expect(res.statusCode).to.be.equal(201);
                 pushConfigId = res.body._id;
                 done();
