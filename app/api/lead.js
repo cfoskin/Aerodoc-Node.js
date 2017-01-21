@@ -59,10 +59,8 @@ exports.delete = (req, res) => {
 };
 
 exports.sendLeads = (req, res) => {
-    console.log(req.params.id);
     Lead.findOne({ id: req.params.id })
         .then(lead => {
-            console.log(lead);
             if (lead != null) {
                 const aliases = req.body;
                 PushSender.sendLeads(aliases, lead);
