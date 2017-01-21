@@ -45,19 +45,6 @@ exports.getAll = (req, res) => {
         })
 };
 
-exports.deleteAll = (req, res) => {
-    Lead.remove({})
-        .then(err => {
-            return res.status(204);
-        })
-        .catch(err => {
-            return res.status(404).json({
-                message: 'Error retrieving the leads from database!',
-                error: err
-            });
-        })
-};
-
 exports.update = (req, res) => {
     Lead.findOneAndUpdate({ id: req.params.id }, { $set: req.body }, { 'new': true })
         .then(lead => {

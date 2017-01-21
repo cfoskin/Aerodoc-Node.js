@@ -27,7 +27,7 @@ exports.getOne = (req, res) => {
             return res.status(404).json({
                 message: 'id not found',
                 error: err
-            });
+            })
         })
 };
 
@@ -73,9 +73,9 @@ exports.delete = (req, res) => {
 };
 
 var createFilterObject = (path, filter) => {
-    let filterObject = {};
-    let comparator = {};
-    let operator = '$eq';
+    const filterObject = {};
+    const comparator = {};
+    const operator = '$eq';
     comparator[operator] = filter;
     filterObject[path] = comparator;
     return filterObject;
@@ -83,7 +83,7 @@ var createFilterObject = (path, filter) => {
 
 exports.searchAgents = (req, res) => {
     let filterObject = {};
-    let path = '';
+    let path;
     if (req.query.status != '') {
         path = Object.keys(req.query)[0];
         filterObject = createFilterObject(path, req.query.status);
