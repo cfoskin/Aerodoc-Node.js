@@ -54,4 +54,30 @@ describe('Sales Agent API Integration Tests', () => {
                 done();
             });
     });
+
+    it('Should return all agents in search', (done) => {
+        supertest(app)
+            .get(salesAgentsUrl + 'searchAgents')
+            .end((err, res) => {
+                expect(Array.isArray(res.body));
+                expect(res.statusCode).to.be.equal(200);
+                expect(res.body.length === 4);
+                expect(res.body.length != 0);
+
+                done();
+            });
+    });
+
+    it('Should return one agent only in search', (done) => {
+        supertest(app)
+            .get(salesAgentsUrl + 'searchAgents?status=&location=Boston')
+            .end((err, res) => {
+                expect(res.body[0]).to.have.property("location", "Boston");
+                expect(res.body[0]).to.not.have.property("location", "New York");
+                expect(res.body.length === 1);
+                expect(res.body.length != 0);
+                expect(res.statusCode).to.be.equal(200);
+                done();
+            });
+    });
 });
