@@ -17,7 +17,7 @@ module.exports = (function() {
     api.delete('/leads/:id', LeadApi.delete);
     api.get('/leads/:id', LeadApi.getOne);
     api.get('/leads', LeadApi.getAll);
-    api.put('/leads/:id', LeadApi.update);
+    api.put('/leads/:id', LeadApi.sendBroadcast);
     api.post('/leads/sendleads/:id', LeadApi.sendLeads);
     //Sales Agents
     api.post('/saleagents', SalesAgentApi.create);

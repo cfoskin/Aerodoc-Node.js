@@ -28,7 +28,7 @@ var updateActiveState = (newPushConfig) => {
                 error: err
             });
         })
-}
+};
 
 exports.create = (req, res) => {
     const pushConfig = new PushConfig(req.body);

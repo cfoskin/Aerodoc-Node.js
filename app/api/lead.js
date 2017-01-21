@@ -45,21 +45,6 @@ exports.getAll = (req, res) => {
         })
 };
 
-exports.update = (req, res) => {
-    Lead.findOneAndUpdate({ id: req.params.id }, { $set: req.body }, { 'new': true })
-        .then(lead => {
-            if (lead != null) {
-                return res.status(200).json(lead);
-            }
-        })
-        .catch(err => {
-            return res.status(404).json({
-                message: 'id not found',
-                error: err
-            });
-        })
-};
-
 exports.delete = (req, res) => {
     Lead.remove({ id: req.params.id })
         .then(lead => {
@@ -73,12 +58,12 @@ exports.delete = (req, res) => {
         });
 };
 
-exports.sendLeads = (req) => {
+exports.sendLeads = (req, res) => {
     Lead.findOne({ id: req.params.id })
         .then(lead => {
             if (lead != null) {
                 const aliases = req.body;
-                PushSender.buildPushMessage(aliases, lead);
+                PushSender.sendLeads(aliases, lead);
             }
         })
         .catch(err => {
@@ -89,6 +74,28 @@ exports.sendLeads = (req) => {
         })
 };
 
-exports.sendBroadcast = () => {
-    //send broadcast to all agents
+exports.sendBroadcast = (req, res) => {
+    Lead.findOneAndUpdate({ id: req.params.id }, { $set: req.body }, { 'new': true })
+        .then(lead => {
+            if (lead != null) {
+                PushSender.sendBroadcast(lead);
+                return res.status(200).json(lead);
+            }
+        })
+        .catch(err => {
+            return res.status(404).json({
+                message: 'id not found',
+                error: err
+            });
+        })
 };
+
+
+
+
+
+
+
+
+
+

@@ -3,69 +3,107 @@
 const PushConfig = require('../models/PushConfig');
 //const agSender = require('unifiedpush-node-sender');
 
-const message = {
+const newLeadMessage = {
     alert: 'A new lead has been created',
     sound: 'default',
     userData: {
-        id: 'lead id',
+        id: 'l',
         messageType: 'pushed_lead',
-        name: 'lead name',
-        location: 'lead location',
-        phoneNumber: 'lead phone number'
+        name: '',
+        location: '',
+        phone: ''
     }
-}
+};
 
-var options = {
+var newLeadOptions = {
     criteria: {
         categories: ['lead'],
         alias: []
     },
     config: {
-        ttl: 3600,
+        ttl: 3600
     }
-}
+};
 
 var settings = {
     url: '',
     applicationId: '',
     masterSecret: ''
-}
+};
 
-var sendPush = (options, settings) => {
+var sendPush = (pushMessage, pushOptions, settings) => {
     agSender(settings).then((client) => {
-        client.sender.send(message, options).then((response) => {
-                return res.status(202).json(response);
+        client.sender.send(pushMessage, pushOptions).then((res) => {
+                return res.status(202);
             })
             .catch(err => {
                 return res.status(500).json({
-                message: 'failed to send push',
-                error: err
-            });
+                    message: 'failed to send push',
+                    error: err
+                });
             })
     });
-}
+};
 
-exports.buildPushMessage = (aliases, lead) => {
+exports.sendLeads = (aliases, lead) => {
     PushConfig.findOne({ active: true })
         .then(activePushConfig => {
             if (activePushConfig != null) {
                 settings.url = activePushConfig.serverURL;
                 settings.applicationId = activePushConfig.pushApplicationId;
                 settings.masterSecret = activePushConfig.masterSecret;
-                options.criteria.alias = aliases;
-
-                message.userData.id = lead.id;
-                message.userData.name = lead.name;
-                message.userData.location = lead.location;
-                message.userData.phoneNumber = lead.phoneNumber;
-
-                sendPush(options, settings);
+                newLeadOptions.criteria.alias = aliases;
+                newLeadMessage.userData.id = lead.id;
+                newLeadMessage.userData.name = lead.name;
+                newLeadMessage.userData.location = lead.location;
+                newLeadMessage.userData.phone = lead.phoneNumber;
+                sendPush(newLeadMessage, newLeadOptions, settings);
             }
         })
         .catch(err => {
-            return res.status(404).end({
+            return res.status(404).json({
                 message: 'error finding active push config',
                 error: err
             });
         })
-}
+};
+
+const acceptedLeadmessage = {
+    alert: 'A new lead has been accepted',
+    sound: 'default',
+    userData: {
+        id: '',
+        messageType: 'accepted_lead',
+        name: '',
+        location: '',
+        phone: ''
+    }
+};
+
+var acceptedLeadOptions = {
+    config: {
+        ttl: 3600
+    }
+};
+
+exports.sendBroadcast = (lead) => {
+    PushConfig.findOne({ active: true })
+        .then(activePushConfig => {
+            if (activePushConfig != null) {
+                settings.url = activePushConfig.serverURL;
+                settings.applicationId = activePushConfig.pushApplicationId;
+                settings.masterSecret = activePushConfig.masterSecret;
+                acceptedLeadmessage.userData.id = lead.id;
+                acceptedLeadmessage.userData.name = lead.name;
+                acceptedLeadmessage.userData.location = lead.location;
+                acceptedLeadmessage.userData.phone = lead.phoneNumber;
+                sendPush(acceptedLeadmessage, acceptedLeadOptions, settings);
+            }
+        })
+        .catch(err => {
+            return res.status(404).json({
+                message: 'error finding active push config',
+                error: err
+            });
+        })
+};
