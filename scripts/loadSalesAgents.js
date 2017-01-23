@@ -6,6 +6,11 @@ const salesAgents = require('../resources/fixtures').salesAgents;
 const SalesAgent = require('../app/models/SalesAgent');
 
 db.on('error', console.error.bind(console, 'Error connecting to Mongo Database:'));
+
+db.collections['salesagents'].drop((err) => {
+            console.log('removing old sales agents');
+        });
+
 db.once('open', function() {
     console.log('Connected to Mongo Database');
     salesAgents.forEach((salesAgent) => {
@@ -13,6 +18,6 @@ db.once('open', function() {
     });
     SalesAgent.collection.insert(salesAgents, () => {
         console.log('Users added to Database');
-    });
+    }); 
     db.close();
 });
