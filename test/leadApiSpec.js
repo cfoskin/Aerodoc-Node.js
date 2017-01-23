@@ -1,16 +1,25 @@
 'use strict';
 
+process.env.NODE_ENV = 'test';
 const supertest = require('supertest');
 const app = require('../index');
-const fixtures = require('./fixtures.json');
+const fixtures = require('../resources/fixtures.json');
 const should = require('chai').should;
 const expect = require('chai').expect;
 
 let leads = fixtures.leads;
 const leadsUrl = '/aerodoc/rest/leads/';
 var leadId;
+const mongoose = require('mongoose');
 
 describe('Lead API Integration Tests', () => {
+    before((done) => {
+        mongoose.connection.collections['leads'].drop((err) => {
+            console.log('test db reset');
+        });
+        done();
+    });
+
     it('Should create a new lead', (done) => {
         var lead = leads[2];
         supertest(app)

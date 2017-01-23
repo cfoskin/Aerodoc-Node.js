@@ -1,7 +1,6 @@
 'use strict';
 
 const mongoose = require('mongoose');
-var SchemaTypes = mongoose.Schema.Types;
 
 const salesAgentSchema = mongoose.Schema({
     id: {
@@ -28,12 +27,12 @@ const salesAgentSchema = mongoose.Schema({
         required: true
     },
     latitude: {
-        type: SchemaTypes.Double,
-        required: true
+        type: Number,
+        required: false
     },
     longitude: {
-        type: SchemaTypes.Double,
-        required: true
+        type: Number,
+        required: false
     }
 });
 

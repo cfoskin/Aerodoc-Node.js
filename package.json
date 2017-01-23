@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "test": "mocha"
+    "test": "mocha",
+    "populateDb": "node ./scripts/loadSalesAgents.js"
   },
   "repository": {
     "type": "git",

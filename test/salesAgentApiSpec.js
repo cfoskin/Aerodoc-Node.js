@@ -1,8 +1,9 @@
 'use strict';
 
+process.env.NODE_ENV = 'test';
 const supertest = require('supertest');
 const app = require('../index');
-const fixtures = require('./fixtures.json');
+const fixtures = require('../resources/fixtures.json');
 const should = require('chai').should;
 const expect = require('chai').expect;
 let salesAgents = fixtures.salesAgents;
@@ -10,19 +11,27 @@ let salesAgents = fixtures.salesAgents;
 const OnesalesAgentUrl = '/aerodoc/rest/salesagents/';
 const salesAgentsUrl = '/aerodoc/rest/saleagents/';
 var salesAgentId;
+const mongoose = require('mongoose');
 
 describe('Sales Agent API Integration Tests', () => {
+    before((done) => {
+        mongoose.connection.collections['salesagents'].drop((err) => {
+            console.log('test db reset');
+        });
+        done();
+    });
+
     it('Should create a new Sales Agent', (done) => {
         var salesAgent = salesAgents[3];
         supertest(app)
             .post(salesAgentsUrl)
             .send(salesAgent)
             .end((err, res) => {
-                expect(res.body).to.have.property("loginName", "agent1");
+                expect(res.body).to.have.property("loginName", "john");
                 expect(res.body).to.have.property("password", "123");
-                expect(res.body).to.have.property("location", "Waterford");
+                expect(res.body).to.have.property("location", "New York");
                 expect(res.statusCode).to.be.equal(201);
-                salesAgentId = res.body._id;
+                salesAgentId = res.body.id;
                 done();
             });
     });

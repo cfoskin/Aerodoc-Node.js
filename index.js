@@ -10,9 +10,9 @@ const mongoose = require('mongoose');
 const path = require('path');
 require('mongoose-double')(mongoose);
 mongoose.Promise = global.Promise;
-
 const config = require('./config/config');
 
+app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
@@ -36,13 +36,19 @@ app.options('*', function(req, res) {
     res.sendStatus(200);
 });
 
-app.use(morgan('dev'));
+//change port and db if testing
+let port = 3000;
+let db = config.database;
+if (process.env.NODE_ENV === 'test') {
+    port = 4000;
+    db = config.test;
+}
 
-mongoose.connect(config.database, (err) => {
+mongoose.connect(db, (err) => {
     if (err) {
         return console.log(err, 'Error connecting to database')
     }
-    app.listen(3000, () => {
+    app.listen(port, () => {
         console.log('Server started on 3000')
     })
 });

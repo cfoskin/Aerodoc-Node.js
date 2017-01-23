@@ -4,6 +4,7 @@ const SalesAgent = require('../models/SalesAgent');
 
 exports.create = (req, res) => {
     const salesAgent = new SalesAgent(req.body);
+    salesAgent.id = Date.now().toString();
     salesAgent.save()
         .then(newSalesAgent => {
             return res.status(201).json(newSalesAgent);
@@ -17,7 +18,7 @@ exports.create = (req, res) => {
 };
 
 exports.getOne = (req, res) => {
-    SalesAgent.findOne({ _id: req.params.id })
+    SalesAgent.findOne({ id: req.params.id })
         .then(salesAgent => {
             if (salesAgent != null) {
                 return res.status(200).json(salesAgent)
@@ -45,7 +46,7 @@ exports.getAll = (req, res) => {
 };
 
 exports.update = (req, res) => {
-    SalesAgent.findOneAndUpdate({ _id: req.params.id }, { $set: req.body }, { 'new': true })
+    SalesAgent.findOneAndUpdate({ id: req.params.id }, { $set: req.body }, { 'new': true })
         .then(salesAgent => {
             if (salesAgent != null) {
                 return res.status(200).json(salesAgent);
@@ -60,7 +61,7 @@ exports.update = (req, res) => {
 };
 
 exports.delete = (req, res) => {
-    SalesAgent.remove({ _id: req.params.id })
+    SalesAgent.remove({ id: req.params.id })
         .then(salesAgent => {
             return res.status(204).json(salesAgent);
         })

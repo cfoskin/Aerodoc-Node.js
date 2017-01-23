@@ -2,10 +2,9 @@
 
 const mongoose = require('mongoose');
 const leadSchema = mongoose.Schema({
-   id: {
+    id: {
         type: Number,
-        required: false,
-        'default': Date.now()
+        required: false
     },
     name: {
         type: String,

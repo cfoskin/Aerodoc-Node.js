@@ -5,6 +5,7 @@ const PushSender = require('../utility/pushSender');
 
 exports.create = (req, res) => {
     const lead = new Lead(req.body);
+    lead.id = Math.floor((Math.random() * 4732981560546796792) + 1);
     lead.save()
         .then(newLead => {
             return res.status(201).json(newLead);
