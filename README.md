@@ -1,5 +1,5 @@
 # Node.js implementation of a RedHat demo Java application.
-This is a Node.js API - and is a replica of the Java version (no authentication - to be added later). This API is built to work with the Aerogear Aerodoc application. The endpoint URL in the dataservice.js file in the Aerodoc project must be updated to point at the URL of this API. The endpoint URL must also be updated in the lead controller of the Aerodoc project. This API will be used as a reference to build a microservices version of this API.
+This Node.js API is a replica of the Java version (no authentication - to be added later). This API is built to work with the Aerogear Aerodoc application. The endpoint URL in the dataservice.js file in the Aerodoc project must be updated to point at the URL of this API. The endpoint URL must also be updated in the lead controller of the Aerodoc project. This API will be used as a reference to build a microservices version of this API.
 
 ##Running 
 
