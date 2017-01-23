@@ -15,7 +15,7 @@ paths:
     get:
       summary: List all leads.
       description: |
-        Return the list of leads for the app.
+        Return the list of leads for the app - the id (not _id) field is used for all HTTP requests.
       operationId: listLeads
       tags:
         - Leads
@@ -163,7 +163,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
   /saleagents:
     get:
-      summary: List all sales agents.
+      summary: Return the list of sales agents for the app - the id (not _id) field is used for all HTTP requests.
       description: |
         Return the list of sales agents for the app.
       operationId: listSalesAgents

@@ -1,7 +1,7 @@
 'use strict';
 
 const PushConfig = require('../models/PushConfig');
-//const agSender = require('unifiedpush-node-sender');
+//const agSender = require('unifiedpush-node-sender'); uncomment to when running API
 
 const newLeadMessage = {
     alert: 'A new lead has been created',
