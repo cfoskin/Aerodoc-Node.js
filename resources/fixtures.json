@@ -1,0 +1,61 @@
+{
+    "aerodoc": "http://localhost:3000",
+    "leads": [{
+        "name": "lead1",
+        "location": "Waterford",
+        "phoneNumber": "1111",
+        "salesAgent": "agent1"
+    }, {
+        "name": "lead2",
+        "location": "Dublin",
+        "phoneNumber": "2222",
+        "salesAgent": "agent2"
+    }, {
+        "name": "lead3",
+        "location": "Kilkenny",
+        "phoneNumber": "3333",
+        "salesAgent": "agent3"
+    }],
+    "salesAgents": [{
+        "loginName": "jake",
+        "password": "123",
+        "location": "Boston",
+        "status": "STANDBY",
+        "latitude": 0,
+        "longitude": 0
+    },
+    {
+        "loginName": "bob",
+        "password": "123",
+        "location": "New York",
+        "status": "STANDBY",
+        "latitude": 0,
+        "longitude": 0
+    }, {
+        "loginName": "maria",
+        "password": "123",
+        "location": "New York",
+        "status": "STANDBY",
+        "latitude": 0,
+        "longitude": 0
+    },
+    {
+        "loginName": "john",
+        "password": "123",
+        "location": "New York",
+        "status": "PTO",
+        "latitude": 0,
+        "longitude": 0
+    }],
+    "pushConfigs": [{
+        "pushApplicationId": "test",
+        "masterSecret": "secret",
+        "serverURL": "testURL",
+        "active": "false"
+    }, {
+        "pushApplicationId": "test2",
+        "masterSecret": "secret",
+        "serverURL": "testURL",
+        "active": "false"
+    }]
+}
