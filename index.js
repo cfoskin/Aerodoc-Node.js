@@ -36,19 +36,32 @@ app.options('*', function(req, res) {
     res.sendStatus(200);
 });
 
+var ip_addr = process.env.OPENSHIFT_NODEJS_IP   || '127.0.0.1';
+var port    = process.env.OPENSHIFT_NODEJS_PORT || '3000';
+// default to a 'localhost' configuration:
+var connection_string = '127.0.0.1:27017/aerodoc';
 //change port and db if testing
-let port = 8080 || process.env.PORT;
-let db = config.database;
+//let port = 8080 || process.env.PORT;
+//let connection_string = config.database;
 if (process.env.NODE_ENV === 'test') {
-    port = 4000 || process.env.PORT;
-    db = config.test;
+    port = 4000;
+    connection_string = config.test;
 }
 
-mongoose.connect(process.env.MONGO, (err) => {
+// if OPENSHIFT env variables are present, use the available connection info:
+if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD){
+  connection_string = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +
+  process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" +
+  process.env.OPENSHIFT_MONGODB_DB_HOST + ':' +
+  process.env.OPENSHIFT_MONGODB_DB_PORT + '/' +
+  process.env.OPENSHIFT_APP_NAME;
+}
+
+mongoose.connect(connection_string, (err) => {
     if (err) {
         return console.log(err, 'Error connecting to database')
     }
-    app.listen(port, () => {
+    app.listen(port, ip_addr, () => {
         console.log('Server started on 3000')
     })
 });
