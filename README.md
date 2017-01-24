@@ -23,9 +23,11 @@ This Node.js API is a replica of the Java version (no authentication - to be add
 
        npm test
 
+##Running Coverage 
+
+      npm run coverage
+      
 ##The API 
   
    API docs can be found at 'localhost:3000/docs'
-
-
-
+   
