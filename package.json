@@ -7,7 +7,8 @@
     "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "mocha",
-    "populateDb": "node ./scripts/loadSalesAgents.js"
+    "populateDb": "node ./scripts/loadSalesAgents.js",
+    "coverage": "./node_modules/istanbul/lib/cli.js cover -x **/app/controllers/** -x **/app/utility/** node_modules/mocha/bin/_mocha test/*"
   },
   "repository": {
     "type": "git",
