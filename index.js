@@ -37,7 +37,7 @@ app.options('*', function(req, res) {
 });
 
 //change port and db if testing
-let port = 3000 || process.env.PORT;
+let port = 8080 || process.env.PORT;
 let db = config.database;
 if (process.env.NODE_ENV === 'test') {
     port = 4000 || process.env.PORT;
@@ -48,7 +48,7 @@ mongoose.connect(process.env.MONGO, (err) => {
     if (err) {
         return console.log(err, 'Error connecting to database')
     }
-    app.listen(p, () => {
+    app.listen(port, () => {
         console.log('Server started on 3000')
     })
 });
