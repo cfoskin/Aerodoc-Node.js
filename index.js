@@ -44,7 +44,7 @@ if (process.env.NODE_ENV === 'test') {
     db = config.test;
 }
 
-mongoose.connect(process.env.MONGO, (err) => {
+mongoose.connect(db, (err) => {
     if (err) {
         return console.log(err, 'Error connecting to database')
     }
