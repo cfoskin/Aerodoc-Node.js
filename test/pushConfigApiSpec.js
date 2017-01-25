@@ -19,7 +19,21 @@ describe('Push Configuration API Integration Tests', () => {
         done();
     });
 
-    it('Should create a new Push Configuration', (done) => {
+    it('Should not create a new Push Configuration', (done) => {
+        var badPushConfig = {
+        "masterSecret": "secret",
+        "active": "false"
+    };
+        supertest(app)
+            .post(pushConfigUrl)
+            .send(badPushConfig)
+            .end((err, res) => {
+                expect(res.statusCode).to.be.equal(500);
+                done();
+            });
+    });
+
+     it('Should create a bad Push Configuration', (done) => {
         var pushConfig = pushConfigs[0];
         supertest(app)
             .post(pushConfigUrl)
@@ -54,6 +68,15 @@ describe('Push Configuration API Integration Tests', () => {
             });
     });
 
+    it('Should not get no existent Push Config', (done) => {
+        supertest(app)
+            .get(pushConfigUrl + 'badId')
+            .end((err, res) => {
+                expect(res.statusCode).to.be.equal(404);
+                done();
+            });
+    });
+
     it('Should update a Push Config', (done) => {
         supertest(app)
             .put(pushConfigUrl + pushConfigId)
@@ -66,11 +89,30 @@ describe('Push Configuration API Integration Tests', () => {
             });
     });
 
+    it('Should not update a non existent Push Config', (done) => {
+        supertest(app)
+            .put(pushConfigUrl + 'badId')
+            .send({ pushApplicationId: 'newId' })
+            .end((err, res) => {
+                 expect(res.statusCode).to.be.equal(404);
+                done();
+            });
+    });
+
     it('Should delete one Push Config', (done) => {
         supertest(app)
             .delete(pushConfigUrl + pushConfigId)
             .end((err, res) => {
                 expect(res.statusCode).to.be.equal(204);
+                done();
+            });
+    });
+
+     it('Should not delete non existent Push Config', (done) => {
+        supertest(app)
+            .delete(pushConfigUrl + 'badId')
+            .end((err, res) => {
+                expect(res.statusCode).to.be.equal(404);
                 done();
             });
     });
