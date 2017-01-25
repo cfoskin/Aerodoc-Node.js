@@ -27,7 +27,7 @@ exports.getOne = (req, res) => {
         })
         .catch(err => {
             return res.status(404).json({
-                message: "'id not found'",
+                message: 'id not found',
                 error: err
             });
         })
@@ -40,7 +40,7 @@ exports.getAll = (req, res) => {
         })
         .catch(err => {
             return res.status(404).json({
-                message: 'id not found',
+                message: 'no leads not found',
                 error: err
             });
         })

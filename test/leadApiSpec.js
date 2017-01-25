@@ -36,12 +36,47 @@ describe('Lead API Integration Tests', () => {
             });
     });
 
+      it('Should not create a new lead', (done) => {
+        var badLead = {
+        "loginName": "bob",
+        "statusbad": "STANDBY",
+        "latitude": 0,
+        "longitude": 0
+    }
+        supertest(app)
+            .post(leadsUrl)
+            .send(badLead)
+            .end((err, res) => {
+                expect(res.statusCode).to.be.equal(500);
+                done();
+            });
+    });
+
     it('Should get all leads', (done) => {
         supertest(app)
             .get(leadsUrl)
             .end((err, res) => {
                 expect(Array.isArray(res.body));
                 expect(res.statusCode).to.be.equal(200);
+                done();
+            });
+    });
+
+    it('Should get no leads', (done) => {
+        supertest(app)
+            .get(leadsUrl)
+            .end((err, res) => {
+                expect(Array.isArray(res.body));
+                expect(res.statusCode).to.be.equal(200);
+                done();
+            });
+    });
+
+    it('Should not get a lead', (done) => {
+        supertest(app)
+            .get(leadsUrl + 'madeupLead')
+            .end((err, res) => {
+                expect(res.statusCode).to.be.equal(404);
                 done();
             });
     });
@@ -64,5 +99,12 @@ describe('Lead API Integration Tests', () => {
             });
     });
 
-
+      it('Should not delete non exixtent lead', (done) => {
+        supertest(app)
+            .delete(leadsUrl +'madeupLead')
+            .end((err, res) => {
+                expect(res.statusCode).to.be.equal(404);
+                done();
+            });
+    });
 });
