@@ -67,12 +67,6 @@ exports.getAll = (req, res) => {
         .then(pushConfigs => {
             return res.status(200).json(pushConfigs);
         })
-        .catch(err => {
-            return res.status(404).json({
-                message: 'error retrieving push configs',
-                error: err
-            });
-        })
 };
 
 exports.update = (req, res) => {
