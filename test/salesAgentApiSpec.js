@@ -36,6 +36,21 @@ describe('Sales Agent API Integration Tests', () => {
             });
     });
 
+    it('Should not create a bad Sales Agent', (done) => {
+        var badAgent = {
+            "location": "New York",
+            "status": "STANDBY",
+            "latitude": 0,
+            "longitude": 0
+        }
+        supertest(app)
+            .post(salesAgentsUrl)
+            .send(badAgent)
+            .end((err, res) => {
+                expect(res.statusCode).to.be.equal(500);
+                done();
+            });
+    });
     it('Should get all Sales Agents', (done) => {
         supertest(app)
             .get(salesAgentsUrl)
@@ -55,27 +70,9 @@ describe('Sales Agent API Integration Tests', () => {
             });
     });
 
-  it('Should not get a non existent Sales Agent', (done) => {
+    it('Should not get a non existent Sales Agent', (done) => {
         supertest(app)
-            .get(OnesalesAgentUrl )
-            .end((err, res) => {
-                expect(res.statusCode).to.be.equal(404);
-                done();
-            });
-    });
-
-    it('Should delete one Sales Agent', (done) => {
-        supertest(app)
-            .delete(salesAgentsUrl + salesAgentId)
-            .end((err, res) => {
-                expect(res.statusCode).to.be.equal(204);
-                done();
-            });
-    });
-
-it('Should not delete non existent Sales Agent', (done) => {
-        supertest(app)
-            .delete(salesAgentsUrl)
+            .get(OnesalesAgentUrl)
             .end((err, res) => {
                 expect(res.statusCode).to.be.equal(404);
                 done();
@@ -101,6 +98,45 @@ it('Should not delete non existent Sales Agent', (done) => {
             .end((err, res) => {
                 expect(res.body.length === 0);
                 expect(res.statusCode).to.be.equal(200);
+                done();
+            });
+    });
+
+    it('Should update a sales agent', (done) => {
+        supertest(app)
+            .put(salesAgentsUrl + salesAgentId)
+            .send({ location: 'new location' })
+            .end((err, res) => {
+                expect(res.body).to.have.property("location", "new location");
+                expect(res.statusCode).to.be.equal(200);
+                done();
+            });
+    });
+
+    it('Should not update a sales agent', (done) => {
+        supertest(app)
+            .put(salesAgentsUrl)
+            .send({ location: 'new location' })
+            .end((err, res) => {
+                expect(res.statusCode).to.be.equal(404);
+                done();
+            });
+    });
+
+    it('Should delete one Sales Agent', (done) => {
+        supertest(app)
+            .delete(salesAgentsUrl + salesAgentId)
+            .end((err, res) => {
+                expect(res.statusCode).to.be.equal(204);
+                done();
+            });
+    });
+
+    it('Should not delete non existent Sales Agent', (done) => {
+        supertest(app)
+            .delete(salesAgentsUrl)
+            .end((err, res) => {
+                expect(res.statusCode).to.be.equal(404);
                 done();
             });
     });
