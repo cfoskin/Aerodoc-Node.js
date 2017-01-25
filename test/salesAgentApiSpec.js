@@ -55,11 +55,29 @@ describe('Sales Agent API Integration Tests', () => {
             });
     });
 
+  it('Should not get a non existent Sales Agent', (done) => {
+        supertest(app)
+            .get(OnesalesAgentUrl )
+            .end((err, res) => {
+                expect(res.statusCode).to.be.equal(404);
+                done();
+            });
+    });
+
     it('Should delete one Sales Agent', (done) => {
         supertest(app)
             .delete(salesAgentsUrl + salesAgentId)
             .end((err, res) => {
                 expect(res.statusCode).to.be.equal(204);
+                done();
+            });
+    });
+
+it('Should not delete non existent Sales Agent', (done) => {
+        supertest(app)
+            .delete(salesAgentsUrl)
+            .end((err, res) => {
+                expect(res.statusCode).to.be.equal(404);
                 done();
             });
     });
