@@ -33,7 +33,7 @@ describe('Push Configuration API Integration Tests', () => {
             });
     });
 
-     it('Should create a bad Push Configuration', (done) => {
+     it('Should not create a bad Push Configuration', (done) => {
         var pushConfig = pushConfigs[0];
         supertest(app)
             .post(pushConfigUrl)

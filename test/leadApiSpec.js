@@ -99,7 +99,7 @@ describe('Lead API Integration Tests', () => {
             });
     });
 
-      it('Should not delete non exixtent lead', (done) => {
+      it('Should not delete non existent lead', (done) => {
         supertest(app)
             .delete(leadsUrl +'madeupLead')
             .end((err, res) => {

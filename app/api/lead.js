@@ -38,12 +38,6 @@ exports.getAll = (req, res) => {
         .then(leads => {
             return res.status(200).json(leads);
         })
-        .catch(err => {
-            return res.status(404).json({
-                message: 'no leads not found',
-                error: err
-            });
-        })
 };
 
 exports.delete = (req, res) => {

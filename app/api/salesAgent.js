@@ -37,12 +37,6 @@ exports.getAll = (req, res) => {
         .then(salesAgents => {
             return res.status(200).json(salesAgents);
         })
-        .catch(err => {
-            return res.status(404).json({
-                message: 'error retrieving the sales agents from database!',
-                error: err
-            });
-        })
 };
 
 exports.update = (req, res) => {
