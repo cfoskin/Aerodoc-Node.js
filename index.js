@@ -11,6 +11,7 @@ const path = require('path');
 require('mongoose-double')(mongoose);
 mongoose.Promise = global.Promise;
 const config = require('./config/config');
+const MongoClient = require('mongodb').MongoClient;
 
 app.use(morgan('dev'));
 app.use(bodyParser.json());
@@ -36,22 +37,34 @@ app.options('*', function(req, res) {
     res.sendStatus(200);
 });
 
-//change port and db if testing
-let port = 3000 || process.env.PORT;
-let db = config.database;
-if (process.env.NODE_ENV === 'test') {
-    port = 4000 || process.env.PORT;
-    db = config.test;
-}
 
-mongoose.connect(db, (err) => {
-    if (err) {
-        return console.log(err, 'Error connecting to database')
+(function init() {
+  var db;
+  var port;
+
+  if (process.env.NODE_ENV === 'test') {
+    port = 4000;
+    db = config.test;
+  } else {
+    port = process.env.SERVER_PORT || 8080;
+    db = process.env.MONGO_URL || config.database;
+  }
+
+  app.listen(port, () => {
+      console.log(`Server started on ${port}`);
+  });
+
+  MongoClient.connect(db, {server: { auto_reconnect: true} }, function(err, db) {
+    if(err) {
+      console.log(`Error connecting to Mongo - ${err}`);
+    } else {
+      console.log("Connected successfully to database");
+      app.db = db;
     }
-    app.listen(port, () => {
-        console.log('Server started on 3000')
-    })
-});
+  });
+
+})();
+
 
 const hbs = exphbs.create({
     defaultLayout: 'main',

@@ -1,0 +1,146 @@
+{
+    "kind": "Template",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "node-aerodoc",
+        "description": "Aerodoc",
+        "tags": "mobile,nodejs"
+    },
+    "parameters": [
+        {
+             "name": "MONGO_URL",
+             "value": "",
+             "description": "Connection string for MongoDb",
+             "required": false
+        },
+        {
+             "name": "SERVER_PORT",
+             "value": "8080",
+             "description": "Port for node app to listen on",
+             "required": true
+        }
+    ],
+    "objects": [
+        {
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "node-aerodoc",
+                "labels": {
+                    "app": "node-aerodoc"
+                }
+            },
+            "spec": {
+                "strategy": {
+                    "type": "Rolling",
+                    "rollingParams": {
+                        "updatePeriodSeconds": 1,
+                        "intervalSeconds": 1,
+                        "timeoutSeconds": 600,
+                        "maxUnavailable": "25%",
+                        "maxSurge": "25%"
+                    },
+                    "resources": {}
+                },
+                "triggers": [
+                    {
+                        "type": "ConfigChange"
+                    }
+                ],
+                "replicas": 1,
+                "test": false,
+                "selector": {
+                    "app": "node-aerodoc",
+                    "deploymentconfig": "node-aerodoc"
+                },
+                "template": {
+                    "metadata": {
+                        "labels": {
+                            "app": "node-aerodoc",
+                            "deploymentconfig": "node-aerodoc"
+                        },
+                        "annotations": {}
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "name": "node-aerodoc",
+                                "image": "docker.io/philipgough/cf",
+                                "ports": [
+                                    {
+                                        "containerPort": "${SERVER_PORT}",
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "env": [
+                                    {
+                                        "name": "SERVER_PORT",
+                                        "value": "${SERVER_PORT}"
+                                    }, {
+                                        "name": "MONGO_URL",
+                                        "value": "${MONGO_URL}"
+                                    }
+                                ],
+                                "resources": {},
+                                "terminationMessagePath": "/dev/termination-log",
+                                "imagePullPolicy": "Always"
+                            }
+                        ],
+                        "restartPolicy": "Always",
+                        "terminationGracePeriodSeconds": 30,
+                        "dnsPolicy": "ClusterFirst"
+                    }
+                }
+            }
+        },
+        {
+            "kind": "Route",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "app-route",
+                "labels": {
+                    "app": "node-aerodoc"
+                }
+            },
+            "spec": {
+                "to": {
+                    "kind": "Service",
+                    "name": "node-aerodoc",
+                    "weight": 100
+                },
+                "port": {
+                    "targetPort": "${SERVER_PORT}"
+                },
+                "tls": {
+                    "termination": "edge",
+                    "insecureEdgeTerminationPolicy": "Redirect"
+                }
+            }
+        },
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "node-aerodoc",
+                "labels": {
+                    "app": "node-aerodoc"
+                }
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "name": "8080-tcp",
+                        "protocol": "TCP",
+                        "port": "${SERVER_PORT}",
+                        "targetPort": 8080
+                    }
+                ],
+                "selector": {
+                    "deploymentconfig": "node-aerodoc"
+                },
+                "type": "ClusterIP",
+                "sessionAffinity": "None"
+            }
+        }
+    ]
+}

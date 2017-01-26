@@ -1,6 +1,6 @@
 'use strict';
 
 module.exports = {
-    'database': 'mongodb://127.0.0.1:/aerodoc',
+    'database': 'mongodb://127.0.0.1:27017/aerodoc',
     'test': 'mongodb://127.0.0.1:/test',
 };
