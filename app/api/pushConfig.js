@@ -1,7 +1,17 @@
 'use strict';
+const winston = require('winston');
+const mdk_express = require('datawire_mdk_express');
+const mdk_winston = require('datawire_mdk_winston');
+// Route Winston logging to the MDK:
+const options = {
+    mdk: mdk_express.mdk,
+    name: 'pushConfig-service'
+};
 
 const PushConfig = require('../models/PushConfig');
 
+
+winston.add(mdk_winston.MDKTransport, options);
 
 var updateActiveState = (newPushConfig) => {
     PushConfig.find({ active: true })
@@ -63,6 +73,7 @@ exports.getOne = (req, res) => {
 };
 
 exports.getAll = (req, res) => {
+        winston.info('Received request to get all push configs');
     PushConfig.find({}).exec()
         .then(pushConfigs => {
             return res.status(200).json(pushConfigs);

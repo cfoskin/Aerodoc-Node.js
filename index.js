@@ -11,7 +11,20 @@ const path = require('path');
 require('mongoose-double')(mongoose);
 mongoose.Promise = global.Promise;
 const config = require('./config/config');
+const mdk_express = require('datawire_mdk_express');
+const mdk_winston = require('datawire_mdk_winston');
+var requestId = require('request-id/express');
 
+var mdk = require("datawire_mdk").mdk;
+var MDK = mdk.start();
+process.on("beforeExit", function (code) {
+    MDK.stop();
+});
+var service = 'aerodoc-service';
+var host = 'localhost';
+
+app.use(mdk_express.mdkSessionStart);
+app.use(requestId());
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -43,6 +56,7 @@ if (process.env.NODE_ENV === 'test') {
     port = 4000 || process.env.PORT;
     db = config.test;
 }
+MDK.register(service, "1.0.0", "http://" + host + ":" + port.toString());
 
 mongoose.connect(db, (err) => {
     if (err) {
@@ -67,5 +81,10 @@ var router = require('./routes');
 var api = require('./routesApi');
 app.use('/aerodoc/rest', api);
 app.use('/', router);
+
+app.use(function(req, res, next) {
+    var ssn = MDK.join(req.get(mdk.MDK.CONTEXT_HEADER));
+    ssn.info(service, "Received a request.");
+});
 
 module.exports = app;

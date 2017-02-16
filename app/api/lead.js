@@ -2,6 +2,16 @@
 
 const Lead = require('../models/Lead');
 const PushSender = require('../utility/pushSender');
+const winston = require('winston');
+const mdk_express = require('datawire_mdk_express');
+const mdk_winston = require('datawire_mdk_winston');
+// Route Winston logging to the MDK:
+const options = {
+    mdk: mdk_express.mdk,
+    name: 'lead-service'
+}
+
+winston.add(mdk_winston.MDKTransport, options);
 
 exports.create = (req, res) => {
     const lead = new Lead(req.body);
@@ -19,6 +29,7 @@ exports.create = (req, res) => {
 };
 
 exports.getOne = (req, res) => {
+    winston.info('Received request to get lead' + req.params.id);
     Lead.findOne({ id: req.params.id })
         .then(lead => {
             if (lead != null) {
@@ -26,6 +37,8 @@ exports.getOne = (req, res) => {
             }
         })
         .catch(err => {
+            winston.error('id not found' + req.params.id);
+            winston.error(JSON.stringify(err));
             return res.status(404).json({
                 message: 'id not found',
                 error: err
@@ -34,6 +47,7 @@ exports.getOne = (req, res) => {
 };
 
 exports.getAll = (req, res) => {
+    winston.info('received request to get all leads');
     Lead.find({}).exec()
         .then(leads => {
             return res.status(200).json(leads);
@@ -84,13 +98,3 @@ exports.sendBroadcast = (req, res) => {
             });
         })
 };
-
-
-
-
-
-
-
-
-
-
