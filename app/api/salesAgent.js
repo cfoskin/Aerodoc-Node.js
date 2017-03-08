@@ -125,7 +125,6 @@ exports.searchAgentsInRange = (req, res) => {
     var coords = [];
     coords[0] = req.query.latitude;
     coords[1] = req.query.longitude;
-    console.log(coords);
     // find an agent in the radius of the circle on the map
     SalesAgent.find({
         coordinates: {
@@ -134,9 +133,8 @@ exports.searchAgentsInRange = (req, res) => {
         }
     }).limit(limit).exec(function(err, salesAgents) {
         if (err) {
-            return res.status(500).json(err);
+            return res.status(204).json(err);
         }
         res.status(200).json(salesAgents);
     });
-
 };
