@@ -23,18 +23,20 @@ const salesAgentSchema = mongoose.Schema({
         required: true
     },
     location: {
-        type: String,
-        required: true
+        type: String
+    },
+    coordinates: {
+        type: [Number], // [<longitude>, <latitude>]
+        index: '2d' // create the geospatial index
     },
     latitude: {
-        type: Number,
-        required: false
+        type: Number
     },
     longitude: {
-        type: Number,
-        required: false
+        type: Number
     }
 });
+
 
 const SalesAgent = mongoose.model('SalesAgent', salesAgentSchema);
 module.exports = SalesAgent;

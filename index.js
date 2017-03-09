@@ -37,7 +37,7 @@ app.options('*', function(req, res) {
 });
 
 //change port and db if testing
-let port = 8080 || process.env.PORT;
+let port = 3000 || process.env.PORT;
 let db = config.database;
 if (process.env.NODE_ENV === 'test') {
     port = 4000 || process.env.PORT;
