@@ -6,13 +6,13 @@ var geocoder = NodeGeocoder();
 
 exports.create = (req, res) => {
     const salesAgent = new SalesAgent(req.body);
-    let coordinates = [[], []];
+    let coordinates =[[],[]];
     //setting the cordinates on the 2d array for geospatial query
     coordinates[0] = salesAgent.latitude;
     coordinates[1] = salesAgent.longitude;
     //get the city using the lat - long pairs
     geocoder.reverse({ lat: coordinates[0], lon: coordinates[1] })
-        .then( place => {
+        .then(place => {
             //update the sales agents location to the city returned
             salesAgent.location = place[0].city;
             salesAgent.coordinates = coordinates;
@@ -59,18 +59,32 @@ exports.getAll = (req, res) => {
 };
 
 exports.update = (req, res) => {
-    SalesAgent.findOneAndUpdate({ id: req.params.id }, { $set: req.body }, { 'new': true })
+    SalesAgent.findOne({ id: req.params.id })
         .then(salesAgent => {
-            if (salesAgent != null) {
-                return res.status(200).json(salesAgent);
-            }
-        })
-        .catch(err => {
-            return res.status(404).json({
-                message: 'id not found',
-                error: err
-            });
-        })
+            let coordinates = [ [], [] ];
+            //setting the cordinates on the 2d array for geospatial query
+            coordinates[0] = req.body.latitude;
+            coordinates[1] = req.body.longitude;
+            //update agent details
+            salesAgent.latitude = req.body.latitude;
+            salesAgent.longitude = req.body.longitude;
+            salesAgent.coordinates = coordinates;
+            salesAgent.status = req.body.status;
+            salesAgent.save().then(newSalesAgent => {
+                    return res.status(204).json(newSalesAgent);
+                })
+                .catch(err => {
+                    return res.status(500).json({
+                        message: 'Error updating sales agent',
+                        error: err
+                    });
+                });
+        }) .catch( err => {
+                    return res.status(404).json({
+                        message: 'id not found',
+                        error: err
+                    });
+                });
 };
 
 exports.delete = (req, res) => {
@@ -133,7 +147,10 @@ exports.searchAgentsInRange = (req, res) => {
         }
     }).limit(limit).exec(function(err, salesAgents) {
         if (err) {
-            return res.status(204).json(err);
+            return res.status(204).json({
+                message: 'no agents found',
+                salesAgents: []
+            });
         }
         res.status(200).json(salesAgents);
     });
