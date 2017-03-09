@@ -6,13 +6,16 @@ var geocoder = NodeGeocoder();
 
 exports.create = (req, res) => {
     const salesAgent = new SalesAgent(req.body);
-    let coordinates = [[], []];
+    let coordinates = [
+        [],
+        []
+    ];
     //setting the cordinates on the 2d array for geospatial query
     coordinates[0] = salesAgent.latitude;
     coordinates[1] = salesAgent.longitude;
     //get the city using the lat - long pairs
     geocoder.reverse({ lat: coordinates[0], lon: coordinates[1] })
-        .then( place => {
+        .then(place => {
             //update the sales agents location to the city returned
             salesAgent.location = place[0].city;
             salesAgent.coordinates = coordinates;
@@ -59,18 +62,62 @@ exports.getAll = (req, res) => {
 };
 
 exports.update = (req, res) => {
-    SalesAgent.findOneAndUpdate({ id: req.params.id }, { $set: req.body }, { 'new': true })
+    let updatedAgent = req.body;
+    console.log(updatedAgent);
+    SalesAgent.findOne({ id: req.params.id })
         .then(salesAgent => {
-            if (salesAgent != null) {
-                return res.status(200).json(salesAgent);
-            }
-        })
-        .catch(err => {
-            return res.status(404).json({
-                message: 'id not found',
-                error: err
-            });
-        })
+            let coordinates = [
+                [],
+                []
+            ];
+            console.log('salesAgent before update: ' + salesAgent);
+            //setting the cordinates on the 2d array for geospatial query
+            coordinates[0] = updatedAgent.latitude;
+            coordinates[1] = updatedAgent.longitude;
+            salesAgent.latitude = updatedAgent.latitude;
+            salesAgent.longitude = updatedAgent.longitude;
+                    //update the sales agents location to the city returned
+                   // salesAgent.location = place[0].city;
+            salesAgent.coordinates = coordinates;
+                    console.log('salesAgent before saving: '+salesAgent);
+                    salesAgent.save().then(newSalesAgent => {
+                            console.log('salesAgent after save: ' + newSalesAgent);
+                            return res.status(200).json(newSalesAgent);
+                        })
+                        .catch(err => {
+                            return res.status(500).json({
+                                message: 'Error updating sales agent',
+                                error: err
+                            });
+                        });
+            
+                
+            // geocoder.reverse({ lat: coordinates[0], lon: coordinates[1] })
+            //     .then(place => {
+            //         salesAgent.latitude = updatedAgent.latitude;
+            //         salesAgent.longitude = updatedAgent.longitude;
+            //         //update the sales agents location to the city returned
+            //         salesAgent.location = place[0].city;
+            //         salesAgent.coordinates = coordinates;
+            //         console.log('salesAgent before saving: '+salesAgent);
+            //         salesAgent.save().then(newSalesAgent => {
+            //                 console.log('salesAgent after save: ' + newSalesAgent);
+            //                 return res.status(201).json(newSalesAgent);
+            //             })
+            //             .catch(err => {
+            //                 return res.status(500).json({
+            //                     message: 'Error updating sales agent',
+            //                     error: err
+            //                 });
+            //             });
+            //     })
+            //     .catch(err => {
+            //         return res.status(404).json({
+            //             message: 'no location found for lat/long pair - sales agent not updated',
+            //             error: err
+            //         });
+            //     });
+        });
 };
 
 exports.delete = (req, res) => {
