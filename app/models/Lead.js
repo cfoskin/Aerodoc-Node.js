@@ -18,7 +18,7 @@ const leadSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    salesAgent: {
+    saleAgent: {
         type: String,
         required: false
     }
