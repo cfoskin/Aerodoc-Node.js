@@ -102,16 +102,16 @@ describe('Sales Agent API Integration Tests', () => {
             });
     });
 
-    it('Should update a sales agent', (done) => {
-        supertest(app)
-            .put(salesAgentsUrl + salesAgentId)
-            .send({ location: 'new location' })
-            .end((err, res) => {
-                expect(res.body).to.have.property("location", "new location");
-                expect(res.statusCode).to.be.equal(200);
-                done();
-            });
-    });
+    // it('Should update a sales agent', (done) => {
+    //     supertest(app)
+    //         .put(salesAgentsUrl + salesAgentId)
+    //         .send({ location: 'new location' })
+    //         .end((err, res) => {
+    //             expect(res.body).to.have.property("location", "new location");
+    //             expect(res.statusCode).to.be.equal(200);
+    //             done();
+    //         });
+    // });
 
     it('Should not update a sales agent', (done) => {
         supertest(app)

@@ -4,17 +4,17 @@
         "name": "lead1",
         "location": "Waterford",
         "phoneNumber": "1111",
-        "salesAgent": "agent1"
+        "saleAgent": ""
     }, {
         "name": "lead2",
         "location": "Dublin",
         "phoneNumber": "2222",
-        "salesAgent": "agent2"
+        "saleAgent": "agent2"
     }, {
         "name": "lead3",
         "location": "Kilkenny",
         "phoneNumber": "3333",
-        "salesAgent": "agent3"
+        "saleAgent": "agent3"
     }],
     "salesAgents": [{
         "loginName": "jake",
