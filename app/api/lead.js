@@ -59,6 +59,7 @@ exports.sendLeads = (req, res) => {
             if (lead != null) {
                 const aliases = req.body;
                 PushSender.sendLeads(aliases, lead);
+                return res.status(200).json('leads sent');
             }
         })
         .catch(err => {
