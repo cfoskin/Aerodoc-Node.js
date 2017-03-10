@@ -29,7 +29,7 @@ describe('Lead API Integration Tests', () => {
                 expect(res.body).to.have.property("name", "lead3");
                 expect(res.body).to.have.property("location", "Kilkenny");
                 expect(res.body).to.have.property("phoneNumber", "3333");
-                expect(res.body).to.have.property("salesAgent", "agent3");
+                expect(res.body).to.have.property("saleAgent", "agent3");
                 expect(res.statusCode).to.be.equal(201);
                 leadId = res.body.id;
                 done();
