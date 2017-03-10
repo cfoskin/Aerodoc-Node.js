@@ -7,7 +7,7 @@ const newLeadMessage = {
     alert: 'A new lead has been created',
     sound: 'default',
     userData: {
-        id: 'l',
+        id: '',
         messageType: 'pushed_lead',
         name: '',
         location: '',
@@ -17,8 +17,8 @@ const newLeadMessage = {
 
 var newLeadOptions = {
     criteria: {
-        categories: ['lead']
-            // alias: []
+        categories: ['lead'],
+             alias: []
     },
     config: {
         ttl: 3600
@@ -50,7 +50,7 @@ exports.sendLeads = (aliases, lead) => {
                 settings.url = activePushConfig.serverURL;
                 settings.applicationId = activePushConfig.pushApplicationId;
                 settings.masterSecret = activePushConfig.masterSecret;
-                //newLeadOptions.criteria.alias = aliases;
+                newLeadOptions.criteria.alias = aliases;
                 newLeadMessage.userData.id = lead.id;
                 newLeadMessage.userData.name = lead.name;
                 newLeadMessage.userData.location = lead.location;

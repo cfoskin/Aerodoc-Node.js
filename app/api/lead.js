@@ -34,7 +34,7 @@ exports.getOne = (req, res) => {
 };
 
 exports.getAll = (req, res) => {
-    Lead.find({ saleAgent: null}).exec()
+    Lead.find({ saleAgent: null }).exec()
         .then(leads => {
             return res.status(200).json(leads);
         })
@@ -58,7 +58,20 @@ exports.sendLeads = (req, res) => {
         .then(lead => {
             if (lead != null) {
                 const aliases = req.body;
-                PushSender.sendLeads(aliases, lead);
+                let newAliases = [];
+                let newAlias = {};
+                //modify the aliases to suit the message to fix push: AGPUSH-2065
+                aliases.forEach((alias) => {
+                    newAlias.id = alias.id;
+                    newAlias.loginName = alias.loginName;
+                    newAlias.password =  alias.password;
+                    newAlias.location = alias.location;
+                    newAlias.status = alias.status;
+                    newAlias.latitude = alias.latitude;
+                    newAlias.longitude = alias.longitude;
+                    newAliases.push(newAlias);
+                });
+                PushSender.sendLeads(newAliases, lead);
                 return res.status(200).json('leads sent');
             }
         })
@@ -85,13 +98,3 @@ exports.sendBroadcast = (req, res) => {
             });
         })
 };
-
-
-
-
-
-
-
-
-
-
