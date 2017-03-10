@@ -34,7 +34,7 @@ exports.getOne = (req, res) => {
 };
 
 exports.getAll = (req, res) => {
-    Lead.find({}).exec()
+    Lead.find({ saleAgent: null}).exec()
         .then(leads => {
             return res.status(200).json(leads);
         })
