@@ -1,13 +1,13 @@
 'use strict';
 
 const PushConfig = require('../models/PushConfig');
-//const agSender = require('unifiedpush-node-sender'); uncomment to when running API
+const agSender = require('unifiedpush-node-sender');
 
 const newLeadMessage = {
     alert: 'A new lead has been created',
     sound: 'default',
     userData: {
-        id: 'l',
+        id: '',
         messageType: 'pushed_lead',
         name: '',
         location: '',
@@ -18,7 +18,7 @@ const newLeadMessage = {
 var newLeadOptions = {
     criteria: {
         categories: ['lead'],
-        alias: []
+             alias: []
     },
     config: {
         ttl: 3600
@@ -34,16 +34,12 @@ var settings = {
 var sendPush = (pushMessage, pushOptions, settings) => {
     agSender(settings)
         .then((client) => {
-            return client.sender.send(pushMessage, pushOptions);
-        })
-        .then((res) => {
-            res.status(202);
+            client.sender.send(pushMessage, pushOptions).then((response) => {
+                    return response;
+                });
         })
         .catch(err => {
-            return res.status(500).json({
-                message: 'failed to send push',
-                error: err
-            });
+            return err;
         });
 };
 
