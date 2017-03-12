@@ -36,23 +36,31 @@ app.options('*', function(req, res) {
     res.sendStatus(200);
 });
 
-//change port and db if testing
-let port = 3000 || process.env.PORT;
-let db = config.database;
-if (process.env.NODE_ENV === 'test') {
-    port = 4000 || process.env.PORT;
-    db = config.test;
-}
+(function init() {
+    var db;
+    var port;
 
-mongoose.connect(db, (err) => {
-    if (err) {
-        return console.log(err, 'Error connecting to database')
+    if (process.env.NODE_ENV === 'test') {
+        port = 5555;
+        db = config.test;
+    } else {
+        port = process.env.SERVER_PORT || 3000;
+        db = process.env.MONGO_URL || config.database;
     }
-    console.log('connected to db');
+
     app.listen(port, () => {
-        console.log('Server started on ' + port)
-    })
-});
+        console.log(`Server started on ${port}`);
+    });
+
+    mongoose.connect(db, { server: { auto_reconnect: true } }, function(err) {
+        if (err) {
+            console.log("Error ", err);
+        } else {
+            console.log('Connected to database');
+        }
+    });
+
+})();
 
 const hbs = exphbs.create({
     defaultLayout: 'main',
