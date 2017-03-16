@@ -54,7 +54,7 @@ app.options('*', function(req, res) {
     mongoose.connect(db, { server: { auto_reconnect: true } }, function(err) {
         if (err) {
             return err;
-        };
+        }
     });
 
 })();
