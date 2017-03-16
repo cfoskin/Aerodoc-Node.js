@@ -58,8 +58,8 @@ exports.sendLeads = (req, res) => {
         .then(lead => {
             if (lead != null) {
                 const aliases = req.body;
-                let newAliases = [];
-                let newAlias = {};
+                const newAliases = [];
+                const newAlias = {};
                 //modify the aliases to suit the message to fix push: AGPUSH-2065
                 aliases.forEach((alias) => {
                     newAlias.id = alias.id;
@@ -96,7 +96,6 @@ exports.sendBroadcast = (req, res) => {
                return PushSender.sendBroadcast(lead);
             }
         }).then( () => {
-            console.log('success');
                 return res.status(204).json('success');
         })
         .catch(err => {

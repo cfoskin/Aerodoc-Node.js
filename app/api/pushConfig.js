@@ -14,7 +14,7 @@ var updateActiveState = (newPushConfig) => {
                             return updatedPushConfig;
                         })
                         .catch(err => {
-                            return err;
+                            return err
                         })
                 }
             });
