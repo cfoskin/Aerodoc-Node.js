@@ -49,14 +49,14 @@ app.options('*', function(req, res) {
     }
 
     app.listen(port, () => {
-        console.log(`Server started on ${port}`);
+      //  console.log(`Server started on ${port}`);
     });
 
     mongoose.connect(db, { server: { auto_reconnect: true } }, function(err) {
         if (err) {
-            console.log("Error ", err);
+         //   console.log("Error ", err);
         } else {
-            console.log('Connected to database');
+          //  console.log('Connected to database');
         }
     });
 
