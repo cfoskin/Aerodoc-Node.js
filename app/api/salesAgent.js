@@ -44,7 +44,7 @@ exports.getAll = (req, res) => {
 exports.update = (req, res) => {
     SalesAgent.findOne({ id: req.params.id })
         .then(salesAgent => {
-            let coordinates = [
+            const coordinates = [
                 [],
                 []
             ];
