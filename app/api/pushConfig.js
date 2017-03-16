@@ -11,13 +11,10 @@ var updateActiveState = (newPushConfig) => {
                     pushConfig.active = false;
                     return pushConfig.save()
                         .then(updatedPushConfig => {
-                            return res.status(200).json(updatedPushConfig);
+                            return updatedPushConfig;
                         })
                         .catch(err => {
-                            return res.status(500).json({
-                                message: 'Error updating active state of push config',
-                                error: err
-                            });
+                            return err;
                         })
                 }
             });
