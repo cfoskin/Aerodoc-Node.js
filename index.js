@@ -49,6 +49,7 @@ app.options('*', function(req, res) {
     }
 
     app.listen(port, () => {
+        console.log('server started on port:' + port);
     });
 
     mongoose.connect(db, { server: { auto_reconnect: true } }, function(err) {
