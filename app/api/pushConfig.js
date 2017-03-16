@@ -23,10 +23,7 @@ var updateActiveState = (newPushConfig) => {
             });
         })
         .catch(err => {
-            return res.status(404).json({
-                message: 'no push configs found',
-                error: err
-            });
+            return err;
         })
 };
 
