@@ -7,7 +7,7 @@ const fixtures = require('../resources/fixtures.json');
 const should = require('chai').should;
 const expect = require('chai').expect;
 const pushConfigs = fixtures.pushConfigs;
-const pushConfigUrl = '/aerodoc/rest/pushConfig/';
+const pushConfigUrl = '/aerodoc/rest/pushconfig/';
 var pushConfigId;
 const mongoose = require('mongoose');
 
@@ -44,7 +44,7 @@ describe('Push Configuration API Integration Tests', () => {
                 expect(res.body).to.have.property("serverURL", "testURL");
                 expect(res.body).to.have.property("active", false);
                 expect(res.statusCode).to.be.equal(201);
-                pushConfigId = res.body._id;
+                pushConfigId = res.body.id;
                 done();
             });
     });
@@ -68,9 +68,9 @@ describe('Push Configuration API Integration Tests', () => {
             });
     });
 
-    it('Should not get no existent Push Config', (done) => {
+    it('Should not get non existent Push Config', (done) => {
         supertest(app)
-            .get(pushConfigUrl + 'badId')
+            .get(pushConfigUrl+'badConfigId')
             .end((err, res) => {
                 expect(res.statusCode).to.be.equal(404);
                 done();
@@ -104,15 +104,6 @@ describe('Push Configuration API Integration Tests', () => {
             .delete(pushConfigUrl + pushConfigId)
             .end((err, res) => {
                 expect(res.statusCode).to.be.equal(204);
-                done();
-            });
-    });
-
-     it('Should not delete non existent Push Config', (done) => {
-        supertest(app)
-            .delete(pushConfigUrl + 'badId')
-            .end((err, res) => {
-                expect(res.statusCode).to.be.equal(404);
                 done();
             });
     });

@@ -7,6 +7,9 @@ npm-debug.log
 coverage/*
 .idea/*
 app-template.json
+originalTemplate.json
+latest.yaml
+app-template.yaml
 jcrsc
 .jscrc
 
