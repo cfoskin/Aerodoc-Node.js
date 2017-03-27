@@ -26,6 +26,7 @@ var updateActiveState = (newPushConfig) => {
 
 exports.create = (req, res) => {
     const pushConfig = new PushConfig(req.body);
+    pushConfig.id = Date.now().toString();
     pushConfig.save()
         .then(newPushConfig => {
             if (newPushConfig.active === true) {
@@ -42,15 +43,17 @@ exports.create = (req, res) => {
 };
 
 exports.getOne = (req, res) => {
-    PushConfig.findOne({ _id: req.params.id })
+    PushConfig.findOne({ id: req.params.id })
         .then(pushConfig => {
-            if (pushConfig != null) {
+            if (pushConfig !== null) {
                 return res.status(200).json(pushConfig)
+            }
+            else{
+                return res.status(404).json({message: 'no push config'});
             }
         })
         .catch(err => {
             return res.status(404).json({
-                message: 'id not found',
                 error: err
             });
         })
@@ -64,22 +67,27 @@ exports.getAll = (req, res) => {
 };
 
 exports.update = (req, res) => {
-    PushConfig.findOneAndUpdate({ _id: req.params.id }, { $set: req.body }, { 'new': true })
+    PushConfig.findOneAndUpdate({ id: req.params.id }, { $set: req.body }, { 'new': true })
         .then(pushConfig => {
-            if (pushConfig != null) {
+            if (pushConfig !== null) {
+                if (pushConfig.active === true) {
+                updateActiveState(pushConfig);
+            }
                 return res.status(200).json(pushConfig);
+            }
+            else{
+                return res.status(404).json({message: 'no push config'});
             }
         })
         .catch(err => {
             return res.status(404).json({
-                message: 'id not found',
                 error: err
             });
         })
 };
 
 exports.delete = (req, res) => {
-    PushConfig.remove({ _id: req.params.id })
+    PushConfig.remove({ id: req.params.id })
         .then(pushConfig => {
             return res.status(204).json(pushConfig);
         })

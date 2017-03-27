@@ -3,6 +3,11 @@
 const mongoose = require('mongoose');
 
 const pushConfigSchema = mongoose.Schema({
+  id: {
+        type: String,
+        unique: true,
+        required: false
+    },
   pushApplicationId: {
   	type: String,
   	required: true
@@ -17,7 +22,8 @@ const pushConfigSchema = mongoose.Schema({
   },
   active: {
   	type: Boolean,
-  	required: true
+  	required: true,
+    default: false
   }
 });
 
