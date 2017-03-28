@@ -24,23 +24,61 @@ var updateActiveState = (newPushConfig) => {
         })
 };
 
-exports.create = (req, res) => {
-    const pushConfig = new PushConfig(req.body);
-    pushConfig.id = Date.now().toString();
-    pushConfig.save()
-        .then(newPushConfig => {
-            if (newPushConfig.active === true) {
-                updateActiveState(newPushConfig);
-            }
-            return res.status(201).json(newPushConfig);
-        })
-        .catch(err => {
+
+exports.create = function (req, res) {
+    const data = new PushConfig(req.body);
+    data.id = Date.now().toString();
+    data.save(function(err, newPushConfig) {
+        if (err) {
             return res.status(500).json({
-                message: 'Error creating push config',
-                error: err
+                error: err.message
             });
-        })
+        }
+        if (newPushConfig.active === true) {
+               PushConfig.find({ active: true }, function(err, truePushConfigs) {
+                 if (err) {
+                    return res.status(404).json({
+                        error: err.message
+                    });
+                }
+
+                truePushConfigs.forEach(function(pushConfig) {
+                if (!pushConfig._id.equals(newPushConfig._id)) {
+                    pushConfig.active = false;
+                    pushConfig.save(function(err, updatedPushConfig) {
+                         if (err) {
+                            return res.status(500).json({
+                                error: err.message
+                            });
+                        }
+                        return updatedPushConfig;
+                    });
+                }
+              });
+            })  
+          }
+          return res.status(201).json(newPushConfig);
+    })
 };
+
+
+// exports.create = (req, res) => {
+//     const pushConfig = new PushConfig(req.body);
+//     pushConfig.id = Date.now().toString();
+//     pushConfig.save()
+//         .then(newPushConfig => {
+//             if (newPushConfig.active === true) {
+//                 updateActiveState(newPushConfig);
+//             }
+//             return res.status(201).json(newPushConfig);
+//         })
+//         .catch(err => {
+//             return res.status(500).json({
+//                 message: 'Error creating push config',
+//                 error: err
+//             });
+//         })
+// };
 
 exports.getOne = (req, res) => {
     PushConfig.findOne({ id: req.params.id })
