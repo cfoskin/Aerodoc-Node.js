@@ -1,7 +1,7 @@
 # Node.js implementation of a RedHat demo Java application.
 This Node.js API is a replica of the Java version (no authentication - to be added later). This API is built to work with the Aerogear Aerodoc application. The endpoint URL in the dataservice.js file in the Aerodoc project must be updated to point at the URL of this API. The endpoint URL must also be updated in the lead controller of the Aerodoc project. This API will be used as a reference to build a microservices version of this API.
 
-##Running 
+## Running 
 
 1. Install Mongo
 
@@ -19,15 +19,15 @@ This Node.js API is a replica of the Java version (no authentication - to be add
 
         npm start
     
-##Running Tests
+## Running Tests
 
        npm test
 
-##Running Coverage 
+## Running Coverage 
 
       npm run coverage
       
-##The API 
+## The API 
   
    API docs can be found at 'localhost:3000/docs'
    
