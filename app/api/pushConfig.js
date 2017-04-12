@@ -61,25 +61,6 @@ exports.create = function (req, res) {
     })
 };
 
-
-// exports.create = (req, res) => {
-//     const pushConfig = new PushConfig(req.body);
-//     pushConfig.id = Date.now().toString();
-//     pushConfig.save()
-//         .then(newPushConfig => {
-//             if (newPushConfig.active === true) {
-//                 updateActiveState(newPushConfig);
-//             }
-//             return res.status(201).json(newPushConfig);
-//         })
-//         .catch(err => {
-//             return res.status(500).json({
-//                 message: 'Error creating push config',
-//                 error: err
-//             });
-//         })
-// };
-
 exports.getOne = (req, res) => {
     PushConfig.findOne({ id: req.params.id })
         .then(pushConfig => {
