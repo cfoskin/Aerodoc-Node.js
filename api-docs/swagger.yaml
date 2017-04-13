@@ -245,7 +245,7 @@ paths:
           description: The sales agents parameters
           required: true
           schema:
-            $ref: '#/definitions/CreateSalesAgentParams'
+            $ref: '#/definitions/UpdateSalesAgentParams'
       tags:
         - Sales Agents
       responses:
@@ -283,6 +283,47 @@ paths:
           description: Application error
           schema:
             $ref: '#/definitions/ErrorResponse'
+  /saleagents/searchagentsinrange:
+    get:
+      summary: Get sales agents in range of a lead.
+      description: |
+        Return the a list of the sales agents in the radius of a leads location
+      operationId: getSalesAgentsInRange
+      parameters:
+        - $ref: "#/parameters/latitude"
+        - $ref: "#/parameters/longitude"
+        - $ref:  "#/parameters/radius"
+      tags:
+        - Sales Agents
+      responses:
+        '200':
+          description: Sales agent returned successfully
+          schema:
+            $ref: '#/definitions/GetSuccessResponse'
+        '204':
+          description: No sales agents in this range
+          schema:
+            $ref: '#/definitions/NoAgentsFoundResponse'
+  /saleagents/searchAgents:
+    get:
+      summary: Search agents by location or status.
+      description: |
+        Return the a list of the sales agents in a group filtered by location or status
+      operationId: searchAgents
+      parameters:
+        - $ref: "#/parameters/status"
+        - $ref: "#/parameters/location"
+      tags:
+        - Sales Agents
+      responses:
+        '200':
+          description: Sales agent returned successfully
+          schema:
+            $ref: '#/definitions/GetSuccessResponse'
+        '204':
+          description: No sales agents
+          schema:
+            $ref: '#/definitions/NoAgentsFoundResponse'
   /pushConfig:
     get:
       summary: List all push configurations.
@@ -414,9 +455,42 @@ parameters:
   leadId:
     name: leadId
     in: path
-    description: the id of the lead to send  - currently not working through swagger but docs are good
+    description: the id of the lead to send
     type: number
     required: true
+  latitude:
+    name: latitude
+    in: query
+    description: query parameters to search for agents in a range 
+    type: string
+    x-example: 40.71278370000024
+    required: true
+  longitude:
+    name: longitude
+    in: query
+    description: query parameters to search for agents in a range 
+    type: string
+    x-example: -74.00594129999988
+    required: true
+  radius:
+    name: radius
+    in: query
+    description: query parameters to search for agents in a range 
+    type: string
+    x-example: 1.5
+    required: true
+  status:
+    name: status
+    in: query
+    description: query parameters to search for agents by status
+    type: string
+    required: false
+  location:
+    name: location
+    in: query
+    description: query parameters to search for agents by location
+    type: string
+    required: false
 definitions:
   GeneralMessage:
     type: object
@@ -434,6 +508,8 @@ definitions:
   ErrorResponse:
     $ref: '#/definitions/GeneralMessage'
   NotFoundResponse:
+    $ref: '#/definitions/GeneralMessage'
+  NoAgentsFoundResponse:
     $ref: '#/definitions/GeneralMessage'
   GetSuccessResponse:
     $ref: '#/definitions/GeneralMessage'
@@ -558,4 +634,30 @@ definitions:
     type: array
     items:
       $ref: 'NewLeadPushMessage'
+  UpdateSalesAgentParams:
+    type: object
+    properties:
+      loginName:
+        type: string
+      status:
+        type: string
+        example: STANDBY
+      password:
+        type: string
+      location:
+        type: string
+      latitude:
+        type: double
+        example: 53.35014
+      longitude:
+        type: double
+        example: -6.266155
+    required:
+      - loginName
+      - latitude
+      - longitude
+      - status
+      - password
+      - location
+       
 
