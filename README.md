@@ -15,7 +15,7 @@ This Node.js API is a replica of the Java version (no authentication - to be add
 
         npm run populateDb
 
-4. Start the server
+4. Start the server on port 3000
 
         npm start
     
